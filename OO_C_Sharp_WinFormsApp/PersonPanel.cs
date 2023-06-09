@@ -614,6 +614,12 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public PersonPanel setClientSize(int weight,int height)
+        {
+            ClientSize = new Size(weight, height);
+            return this;
+        }
+
     }
 
 }
