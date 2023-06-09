@@ -89,7 +89,7 @@ namespace OO_C_Sharp_WinFormsApp
              * パネル
              */
             setLocation(20, 20);
-            ClientSize = new Size(450, 250);
+            setClientSize(450, 250); 
             BorderStyle = BorderStyle.Fixed3D;
             Name = "personPanel";
             Text = person.fullName();
