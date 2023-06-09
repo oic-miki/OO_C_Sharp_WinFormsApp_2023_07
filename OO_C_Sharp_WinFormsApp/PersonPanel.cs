@@ -401,7 +401,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonBirthdayDateTimePicker personBirthdayDateTimePicker = new PersonBirthdayDateTimePicker(person);
 
-            personBirthdayDateTimePicker.setLocation(220, 148).Size = new Size(200, 23);
+            personBirthdayDateTimePicker.setLocation(220, 148).setSize(200, 23);
             personBirthdayDateTimePicker.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
