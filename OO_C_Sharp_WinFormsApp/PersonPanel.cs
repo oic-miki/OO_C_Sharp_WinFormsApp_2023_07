@@ -378,7 +378,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameTextBox personNameTextBox = new PersonNameTextBox(person);
 
-            personNameTextBox.setLocation(220, 118).Size = new Size(100, 23);
+            personNameTextBox.setLocation(220, 118).setSize(100, 23);
             personNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する

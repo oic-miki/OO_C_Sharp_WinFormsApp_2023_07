@@ -76,6 +76,13 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public BaseTextBox setSize(int x, int y) 
+        {
+            Size = new Size(x, y);
+
+            return this;
+        }
+
         public BaseTextBox setLocation(int x, int y)
         {
 
