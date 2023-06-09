@@ -48,6 +48,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PerformLayout();
 
+            setLocation(0,0).setSize(1000, 1000);
         }
 
         private void initializeDisplay()
@@ -276,7 +277,6 @@ namespace OO_C_Sharp_WinFormsApp
             {
 
                 // ここにデバッグモードの処理を記述できます
-
             }
             else
             {
@@ -287,6 +287,20 @@ namespace OO_C_Sharp_WinFormsApp
 
             getRegisteredUserList().update();
 
+        }
+
+        public Library setLocation(int x,int y)
+        {
+            this.Location = new Point(x,y);
+            update();
+            return this;
+        }
+
+        public Library setSize(int width,int height)
+        {
+            this.Size = new Size(width,height);
+            update();
+            return this;
         }
 
     }
