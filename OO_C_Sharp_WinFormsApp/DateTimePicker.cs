@@ -86,6 +86,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public BaseDateTimePicker setSize(int x, int y)
+        {
+            Size=new Size(x, y);
+            return this;
+        }
     }
 
     public class PersonBirthdayDateTimePicker : BaseDateTimePicker, Observer
