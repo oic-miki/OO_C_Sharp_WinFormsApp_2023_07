@@ -33,7 +33,7 @@ namespace OO_C_Sharp_WinFormsApp
         public BookModel(int id)
         {
 
-            this.id = id;
+            addId(id);
 
         }
 
