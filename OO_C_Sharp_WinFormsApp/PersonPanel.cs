@@ -457,7 +457,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonImagePictureBox personImagePictureBox = new PersonImagePictureBox(person);
 
-            personImagePictureBox.setLocation(360, 30).Size = new Size(60, 80);
+            personImagePictureBox.setLocation(360, 30);
+            personImagePictureBox.setSize(60,80);
 
             // オブザーバーとして登録する
             addObserver(personImagePictureBox);

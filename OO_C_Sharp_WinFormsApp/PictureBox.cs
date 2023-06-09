@@ -87,6 +87,14 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+
+        public BasePictureBox setSize(int width, int height)
+        {
+	        // サイズを指定する
+					Size = new Size(width,height);
+
+	        return this ;
+        }
     }
 
     public class PersonImagePictureBox : BasePictureBox, Observer
