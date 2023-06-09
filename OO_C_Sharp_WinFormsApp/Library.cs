@@ -275,11 +275,12 @@ namespace OO_C_Sharp_WinFormsApp
 
             if (application.isDebugMode())
             {
-
+                setLocation(0,0).setSize(1000, 500);
                 // ここにデバッグモードの処理を記述できます
             }
             else
             {
+                setLocation(100, 0).setSize(500, 500);
 
                 // ここに通常モードの処理を記述できます
 
@@ -292,14 +293,12 @@ namespace OO_C_Sharp_WinFormsApp
         public Library setLocation(int x,int y)
         {
             this.Location = new Point(x,y);
-            update();
             return this;
         }
 
         public Library setSize(int width,int height)
         {
             this.Size = new Size(width,height);
-            update();
             return this;
         }
 
