@@ -378,7 +378,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameTextBox personNameTextBox = new PersonNameTextBox(person);
 
-            personNameTextBox.setLocation(220, 118).Size = new Size(100, 23);
+            personNameTextBox.setLocation(220, 118).setSize(100, 23);
             personNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -457,7 +457,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonImagePictureBox personImagePictureBox = new PersonImagePictureBox(person);
 
-            personImagePictureBox.setLocation(360, 30).Size = new Size(60, 80);
+            personImagePictureBox.setLocation(360, 30);
+            personImagePictureBox.setSize(60,80);
 
             // オブザーバーとして登録する
             addObserver(personImagePictureBox);
