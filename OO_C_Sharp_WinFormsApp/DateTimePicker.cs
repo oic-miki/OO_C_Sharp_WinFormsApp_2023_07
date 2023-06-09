@@ -86,9 +86,9 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
-        public BaseDateTimePicker setSize(int x, int y)
+        public BaseDateTimePicker setSize(int w, int h)
         {
-            Size=new Size(x, y);
+            Size=new Size(w,h);
             return this;
         }
     }
