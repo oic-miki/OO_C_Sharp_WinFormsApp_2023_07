@@ -86,6 +86,11 @@ namespace OO_C_Sharp_WinFormsApp
             Controls.Add(createSaveButton(tabIndex++));
 
             /*
+             * コンテキストメニュー
+             */
+            ContextMenuStrip = new SampleContextMenuStrip();
+
+            /*
              * パネル
              */
             setLocation(20, 20);
