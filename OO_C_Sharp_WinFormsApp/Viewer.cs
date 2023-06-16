@@ -22,6 +22,8 @@ namespace OO_C_Sharp_WinFormsApp
 
         Viewer show();
 
+        Viewer setSize(int width,int height);
+
     }
 
     public class NullViewer : Viewer, NullObject
@@ -62,10 +64,14 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public Viewer setSize(int width, int height)
+        {
+	        return this;
+        }
+
         public Viewer activate(int id)
         {
-
-            return this;
+	        return this;
 
         }
 
@@ -165,6 +171,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public Viewer setSize(int width, int height)
+        {
+	        Size = new Size(width, height);
+          return this;
+        }
     }
 
 }

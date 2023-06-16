@@ -45,7 +45,7 @@ namespace OO_C_Sharp_WinFormsApp
             userDataGridView.Columns[index++].Name = "名";
             userDataGridView.Columns[index++].Name = "誕生日";
 
-            Size = new Size(userDataGridView.Size.Width, 300);
+            setSize(userDataGridView.Size.Width, 300);
 
         }
 
@@ -115,6 +115,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public Viewer setSize(int width, int height)
+        {
+					Size = new Size(width, height);
+					return this;
+        }
     }
 
 }

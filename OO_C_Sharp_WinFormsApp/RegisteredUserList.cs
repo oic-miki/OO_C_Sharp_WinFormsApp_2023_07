@@ -157,10 +157,9 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
-        public RegisteredUserList setSize(int width, int height)
+        public Viewer setSize(int width, int height)
         {
             Size = new Size(width, height);
-
             return this;
         }
 

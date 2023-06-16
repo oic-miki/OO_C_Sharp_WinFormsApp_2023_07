@@ -94,7 +94,7 @@ namespace OO_C_Sharp_WinFormsApp
 
                 // 登録済み利用者の一覧を生成する
                 registeredUserList = new PlaceRegisteredUserList();
-                registeredUserList.setLocation(0, 0).setSize(0, 0);
+                registeredUserList.setLocation(0, 0).setSize(1900, 0);
 
             }
 
