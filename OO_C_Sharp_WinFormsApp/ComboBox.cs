@@ -87,6 +87,14 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public BaseComboBox setSize(int width, int height) 
+        {
+
+            //表示の大きさを指定する
+            Size = new Size(width, height);
+
+            return this;
+        }
     }
 
     public class UserRoleComboBox : BaseComboBox, Observer

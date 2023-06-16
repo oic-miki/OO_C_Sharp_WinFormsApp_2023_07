@@ -89,7 +89,7 @@ namespace OO_C_Sharp_WinFormsApp
              * パネル
              */
             setLocation(20, 20);
-            ClientSize = new Size(450, 250);
+            setClientSize(450, 250); 
             BorderStyle = BorderStyle.Fixed3D;
             Name = "personPanel";
             Text = person.fullName();
@@ -322,7 +322,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             FamilyNameTextBox familyNameTextBox = new FamilyNameTextBox(person);
 
-            familyNameTextBox.setLocation(220, 88).Size = new Size(100, 23);
+            familyNameTextBox.setLocation(220, 88).setSize(100, 23);
             familyNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -379,7 +379,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameTextBox personNameTextBox = new PersonNameTextBox(person);
 
-            personNameTextBox.setLocation(220, 118).Size = new Size(100, 23);
+            personNameTextBox.setLocation(220, 118).setSize(100, 23);
             personNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -402,7 +402,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonBirthdayDateTimePicker personBirthdayDateTimePicker = new PersonBirthdayDateTimePicker(person);
 
-            personBirthdayDateTimePicker.setLocation(220, 148).Size = new Size(200, 23);
+            personBirthdayDateTimePicker.setLocation(220, 148).setSize(200, 23);
             personBirthdayDateTimePicker.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -458,7 +458,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonImagePictureBox personImagePictureBox = new PersonImagePictureBox(person);
 
-            personImagePictureBox.setLocation(360, 30).Size = new Size(60, 80);
+            personImagePictureBox.setLocation(360, 30);
+            personImagePictureBox.setSize(60,80);
 
             // オブザーバーとして登録する
             addObserver(personImagePictureBox);
@@ -612,6 +613,12 @@ namespace OO_C_Sharp_WinFormsApp
 
             return this;
 
+        }
+
+        public PersonPanel setClientSize(int weight,int height)
+        {
+            ClientSize = new Size(weight, height);
+            return this;
         }
 
     }

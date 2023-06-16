@@ -157,6 +157,22 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public RegisteredUserList setSize(int width, int height)
+        {
+            Size = new Size(width, height);
+
+            return this;
+        }
+
+        public RegisteredUserList setLocation(int x, int y)
+        {
+
+            // •\Ž¦ˆÊ’u‚ðŽw’è‚·‚é
+            Location = new Point(x, y);
+
+            return this;
+
+        }
         /// <summary>
         ///  Brings this control to the front of the zorder.
         /// </summary>
