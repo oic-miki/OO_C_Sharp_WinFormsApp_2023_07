@@ -75,8 +75,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         public Book addName(string name)
         {
+            Debug.Assert(name != null);
 
             this.name = name;
+
+            Debug.Assert(this.name != null);
 
             return this;
 
@@ -89,8 +92,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         public Book addPrice(int price)
         {
+            Debug.Assert(price >=0 );
+
             this.price = price;
 
+            Debug.Assert(this.price >=0);
             return this;
         }
 
@@ -101,7 +107,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         public Book addFormat(String format)
         {
+            Debug.Assert(format != null);
+
             this.format = format;
+
+            Debug.Assert(this.format != null);
 
             return this;
         }
@@ -115,8 +125,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         public Book addInternationalStandardBookNumber(string isbn)
         {
+            Debug.Assert(isbn != null);
 
             this.isbn = isbn;
+
+            Debug.Assert(this.isbn != null);
 
             return this;
 
