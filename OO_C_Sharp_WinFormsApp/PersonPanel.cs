@@ -320,7 +320,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             FamilyNameTextBox familyNameTextBox = new FamilyNameTextBox(person);
 
-            familyNameTextBox.setLocation(220, 88).Size = new Size(100, 23);
+            familyNameTextBox.setLocation(220, 88).setSize(100, 23);
             familyNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
