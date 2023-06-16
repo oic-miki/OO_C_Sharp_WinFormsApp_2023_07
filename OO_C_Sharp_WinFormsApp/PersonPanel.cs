@@ -89,7 +89,7 @@ namespace OO_C_Sharp_WinFormsApp
              * パネル
              */
             setLocation(20, 20);
-            ClientSize = new Size(450, 250);
+            setClientSize(450, 250); 
             BorderStyle = BorderStyle.Fixed3D;
             Name = "personPanel";
             Text = person.fullName();
@@ -197,7 +197,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonIdLabel personIdLabel = new PersonIdLabel(person);
 
-            personIdLabel.setLocation(100, 30).Size = new Size(38, 15);
+            //personIdLabel.setLocation(100, 30).Size = new Size(38, 15);
+           //personIdLabel.setLocation(100, 30).setSize(38,15);
 
             // オブザーバーとして登録する
             addObserver(personIdLabel);
@@ -301,6 +302,7 @@ namespace OO_C_Sharp_WinFormsApp
             FamilyNameLabel familyNameLabel = new FamilyNameLabel(person);
 
             familyNameLabel.setLocation(100, 90).Size = new Size(38, 15);
+            familyNameLabel.setFontSize(10);
 
             // オブザーバーとして登録する
             addObserver(familyNameLabel);
@@ -320,7 +322,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             FamilyNameTextBox familyNameTextBox = new FamilyNameTextBox(person);
 
-            familyNameTextBox.setLocation(220, 88).Size = new Size(100, 23);
+            familyNameTextBox.setLocation(220, 88).setSize(100, 23);
             familyNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -358,8 +360,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameLabel personNameLabel = new PersonNameLabel(person);
 
-            personNameLabel.setLocation(100, 120).Size = new Size(38, 15);
-
+            //personNameLabel.setLocation(100, 120);
             // オブザーバーとして登録する
             addObserver(personNameLabel);
 
@@ -378,7 +379,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameTextBox personNameTextBox = new PersonNameTextBox(person);
 
-            personNameTextBox.setLocation(220, 118).Size = new Size(100, 23);
+            personNameTextBox.setLocation(220, 118).setSize(100, 23);
             personNameTextBox.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -401,7 +402,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonBirthdayDateTimePicker personBirthdayDateTimePicker = new PersonBirthdayDateTimePicker(person);
 
-            personBirthdayDateTimePicker.setLocation(220, 148).Size = new Size(200, 23);
+            personBirthdayDateTimePicker.setLocation(220, 148).setSize(200, 23);
             personBirthdayDateTimePicker.TabIndex = tabIndex;
 
             // オブザーバーとして登録する
@@ -612,6 +613,12 @@ namespace OO_C_Sharp_WinFormsApp
 
             return this;
 
+        }
+
+        public PersonPanel setClientSize(int weight,int height)
+        {
+            ClientSize = new Size(weight, height);
+            return this;
         }
 
     }

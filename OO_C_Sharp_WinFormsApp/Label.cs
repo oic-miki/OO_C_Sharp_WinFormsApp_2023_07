@@ -73,6 +73,13 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public BaseLabel setFontSize(int size)
+        {
+            this.Font = new Font(Font.FontFamily, size);
+
+            return this;
+        }
+
     }
 
     public class PersonIdLabel : BaseLabel

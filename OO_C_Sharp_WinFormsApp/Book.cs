@@ -15,12 +15,19 @@ namespace OO_C_Sharp_WinFormsApp
 
         String getName();
 
+        int getPrice();
+
+        string getFormat();
+
         Book addName(String name);
+
+        Book addPrice(int price);
+
+        Book addFormat(String format);
 
         String getInternationalStandardBookNumber();
 
         Book addInternationalStandardBookNumber(String isbn);
-
     }
 
     public class BookModel : Book
@@ -29,6 +36,8 @@ namespace OO_C_Sharp_WinFormsApp
         private int id;
         private String name;
         private String isbn;
+        private int price;
+        private String format;
 
         public BookModel(int id)
         {
@@ -73,6 +82,30 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public int getPrice()
+        {
+            return price;
+        }
+
+        public Book addPrice(int price)
+        {
+            this.price = price;
+
+            return this;
+        }
+
+        public String getFormat()
+        {
+            return format;
+        }
+
+        public Book addFormat(String format)
+        {
+            this.format = format;
+
+            return this;
+        }
+
         public string getInternationalStandardBookNumber()
         {
 
@@ -88,6 +121,7 @@ namespace OO_C_Sharp_WinFormsApp
             return this;
 
         }
+
 
     }
 
