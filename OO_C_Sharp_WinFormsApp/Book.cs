@@ -10,7 +10,6 @@ namespace OO_C_Sharp_WinFormsApp
 
     public interface Book
     {
-
         int getId();
 
         String getName();
@@ -30,32 +29,132 @@ namespace OO_C_Sharp_WinFormsApp
         Book addInternationalStandardBookNumber(String isbn);
     }
 
+    public class NullBook : BookModel, NullObject
+    {
+
+        private static Book book = new NullBook();
+
+        protected NullBook()
+        {
+            /*
+             * スーパークラスの値追加メソッドがオーバーライドされているため、
+             * 直接スーパークラスのメソッドを発効する。
+             */
+
+            /*
+             * 本名
+             */
+            base.addName("");
+
+            /*
+             * 金額
+             */
+            base.addPrice(0);
+
+            /*
+             * 本のサイズ
+             */
+            base.addFormat("");
+        }
+
+        public static Book get()
+        {
+            return book;
+        }
+
+        public override Book addName(String name)
+        { 
+            return this;
+        }
+
+        public override Book addPrice(int prise)
+        {
+            return this;
+        }
+
+        public override Book addFormat(String format)
+        {
+            return this;
+        }
+    }
+
     public class BookModel : Book
     {
 
         private int id;
-        private String name;
-        private String isbn;
+        private String name ="";
         private int price;
         private String format;
+        private String isbn;
+        
+        public BookModel()
+        {
+            /*
+             * ID
+             */
+            addId(0);
 
-        public BookModel(int id)
+            /*
+            * 本名
+            */
+            addName("");
+
+            /*
+            * 金額
+            */
+            addPrice(0);
+
+            /*
+             * 本のサイズ
+             */
+            addFormat("");
+
+            /*
+            * ISBN
+            */
+            addInternationalStandardBookNumber("");
+        }
+        
+
+        public BookModel(int id, String name, int price, string format, String isbn)
         {
 
+            /*
+             * ID
+             */
             addId(id);
 
+            /*
+             * 本名
+             */
+            addName(name);
+
+            /*
+             * 金額
+             */
+            addPrice(price);
+
+            /*
+             * 本のサイズ
+             */
+            addFormat(format);
+
+            /*
+            * ISBN
+            */
+            addInternationalStandardBookNumber(isbn);
         }
+
 
         public int getId()
         {
 
             return id;
-
+        
         }
 
         public Book addId(int id)
         {
-
             Debug.Assert(id >= 0);
 
             this.id = id;
@@ -63,17 +162,16 @@ namespace OO_C_Sharp_WinFormsApp
             Debug.Assert(this.id >= 0);
 
             return this;
-
         }
 
         public string getName()
         {
-
+       
             return name;
-
+        
         }
 
-        public Book addName(string name)
+        public virtual Book addName(string name)
         {
             Debug.Assert(name != null);
 
@@ -87,10 +185,12 @@ namespace OO_C_Sharp_WinFormsApp
 
         public int getPrice()
         {
+           
             return price;
+        
         }
 
-        public Book addPrice(int price)
+        public virtual Book addPrice(int price)
         {
             Debug.Assert(price >=0 );
 
@@ -102,10 +202,12 @@ namespace OO_C_Sharp_WinFormsApp
 
         public String getFormat()
         {
+          
             return format;
+        
         }
 
-        public Book addFormat(String format)
+        public virtual Book addFormat(String format)
         {
             Debug.Assert(format != null);
 
@@ -134,8 +236,5 @@ namespace OO_C_Sharp_WinFormsApp
             return this;
 
         }
-
-
     }
-
 }
