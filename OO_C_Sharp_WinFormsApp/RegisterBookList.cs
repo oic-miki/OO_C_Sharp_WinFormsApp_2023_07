@@ -95,10 +95,11 @@ namespace OO_C_Sharp_WinFormsApp
         }
 
         // 利用者情報のビューワーを生成する
-        PersonPanelViewer personPanelViewer = new PersonPanelViewer();
+        BookPanelViewer bookPanelViewer = new BookPanelViewer();
 
         private void initialize()
         {
+            getBookDB().save(new BookModel(1, "name", 1000, "format", "isbn"));
 
             initializeDisplay();
 
@@ -107,7 +108,7 @@ namespace OO_C_Sharp_WinFormsApp
         private void initializeDisplay()
         {
 
-            personPanelViewer.removeControlAll();
+            bookPanelViewer.removeControlAll();
 
             removeControlAll();
 
@@ -120,12 +121,12 @@ namespace OO_C_Sharp_WinFormsApp
                 int y = 20;
                 int incrementalValueOfX = 800 / bookCount - 100;
                 int incrementalValueOfY = 450 / bookCount - 50;
-
-                foreach (Person book in getBookDB().list())
+                var list = getBookDB().list();
+                foreach (Book book in list)
                 {
 
                     // 利用者情報のパネルを生成する
-                    PersonPanel personPanel = new PersonPanel(book);
+                    BookPanel personPanel = new BookPanel(book);
 
                     /*
                      * 最初に、ビューワー用の利用者情報のパネルを生成し、ビューワーへ追加する。
@@ -133,7 +134,7 @@ namespace OO_C_Sharp_WinFormsApp
                      * その次に、活性化のハンドラーとして登録する。
                      * 最後に、利用者情報のパネルを追加する。
                      */
-                    add(personPanel.addViewer(personPanelViewer.add(new PersonPanel(book))).addActivationHandler(personPanelViewer).setLocation(x, y));
+                    add(personPanel.addViewer(bookPanelViewer.add(new BookPanel(book))).addActivationHandler(bookPanelViewer).setLocation(x, y));
 
                     x += incrementalValueOfX;
                     y += incrementalValueOfY;
@@ -295,14 +296,14 @@ namespace OO_C_Sharp_WinFormsApp
             {
 
                 // 利用者情報のビューワーを表示する
-                personPanelViewer.show();
+                bookPanelViewer.show();
 
             }
             else
             {
 
                 // 利用者情報のビューワーを非表示にする
-                personPanelViewer.Hide();
+                bookPanelViewer.Hide();
 
             }
 
