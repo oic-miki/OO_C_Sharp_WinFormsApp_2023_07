@@ -27,6 +27,7 @@ namespace OO_C_Sharp_WinFormsApp
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
+        private ContextMenuStrip context1= new ContextMenuStrip();
 
         public PersonPanel(Person person)
         {
@@ -97,6 +98,10 @@ namespace OO_C_Sharp_WinFormsApp
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
 
+            if (true)   //新規登録ウィンドウにあるPersonPanelであるばあい
+                addRegisterContextMenu();
+            /*else if (false)   ライブラリウィンドウにあるPersonPanelであるばあい
+                addLibraryContextMenu();*/
         }
 
         private void initializeDragDrop()
@@ -137,6 +142,17 @@ namespace OO_C_Sharp_WinFormsApp
 
             bringToFront();
 
+        }
+
+        private void addRegisterContextMenu()
+        {
+            context1.Items.Add("入力クリア",null,textBoxClear);
+
+            ContextMenuStrip = context1;
+        }
+        private void textBoxClear(object sender, EventArgs e)
+        {
+            
         }
 
         /// <summary>
