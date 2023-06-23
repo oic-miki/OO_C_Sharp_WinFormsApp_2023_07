@@ -384,6 +384,74 @@ namespace OO_C_Sharp_WinFormsApp
 
     }
 
+    public class BookDataBase : DataBase
+    {
+        private static BookDataBase bookDataBase = new BookDataBase();
+
+        private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
+        { };
+        private List<Book> books = new List<Book>();
+
+        public override int count()
+        {
+            return dataBase.Count;
+        }
+
+        public override bool isEmpty()
+        {
+            return count() == 0;
+        }
+
+        public override int createNewId()
+        {
+            var sortedMap = dataBase.OrderBy(pair => pair.Key);
+            if (sortedMap.Any())
+            {
+
+                return sortedMap.Last().Key + 1;
+
+            }
+
+            return 1;
+        }
+
+        public static BookDataBase get()
+        {
+
+            return bookDataBase;
+
+        }
+
+
+        public List<Book> list()
+        {
+
+            books.Clear();
+
+            books.AddRange(dataBase.Values);
+
+            return books;
+
+        }
+        public BookDataBase save(Book book)
+        {
+
+            Debug.Assert(book != null);
+
+            dataBase.Add(book.getId(), book);
+
+            Debug.Assert(dataBase.ContainsKey(book.getId()));
+            Debug.Assert(dataBase[book.getId()].Equals(book));
+
+            return this;
+        }
+        public BookDataBase removeAll()
+        {
+            bookDataBase.removeAll();
+            return this;
+        }
+    }
+
     public class UserDataBase : DataBase
     {
 
@@ -396,7 +464,7 @@ namespace OO_C_Sharp_WinFormsApp
         {
 
             Family family = FamilyDataBase.get().findById(3);
-            
+
             // Fatory Method を利用した実装です
             /*
             save(new AdministratorCreator().create().addFamilyName(family.getName()).addName("管理者A") as User);
@@ -475,7 +543,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         public UserDataBase save(User user)
         {
-            
+
             if (user is not RecordableUser)
             {
 
