@@ -162,6 +162,12 @@ namespace OO_C_Sharp_WinFormsApp
         {
             var c = Controls.OfType<TextBox>();
             foreach(TextBox t in c) { t.Text = ""; }
+
+            var comboBoxes = Controls.OfType<ComboBox>();
+            foreach(ComboBox combo in comboBoxes) { combo.SelectedIndex = 0; }
+
+            var dateTimePickers = Controls.OfType<DateTimePicker>();
+            foreach(DateTimePicker dateTimePicker in dateTimePickers) { dateTimePicker.Value = DateTime.Today; }
         }
 
         /// <summary>
