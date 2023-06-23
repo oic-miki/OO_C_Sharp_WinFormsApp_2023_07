@@ -168,6 +168,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             var dateTimePickers = Controls.OfType<DateTimePicker>();
             foreach(DateTimePicker dateTimePicker in dateTimePickers) { dateTimePicker.Value = DateTime.Today; }
+
+            foreach(PersonImagePictureBox pictureBox in Controls.OfType<PersonImagePictureBox>()) { pictureBox.Image = Properties.Resources.noImage_60x80; }
         }
 
         /// <summary>
