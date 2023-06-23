@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OO_C_Sharp_WinFormsApp
 {
@@ -23,7 +24,6 @@ namespace OO_C_Sharp_WinFormsApp
             this.person = person;
 
             Debug.Assert(this.person != null);
-
         }
 
         protected Person getPerson()
@@ -108,7 +108,9 @@ namespace OO_C_Sharp_WinFormsApp
             BorderStyle = BorderStyle.Fixed3D;
             Name = "personImagePictureBox";
             TabStop = false;
-
+            base.DragDrop += pictureBox_DragDrop;
+            base.DragEnter += pictureBox_DragEnter;
+            base.AllowDrop = true;
             update();
 
             ((ISupportInitialize) this).EndInit();
@@ -129,7 +131,16 @@ namespace OO_C_Sharp_WinFormsApp
             getPerson().addImage(Image);
 
         }
-
+        private void pictureBox_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.All : DragDropEffects.None;
+        }
+        private void pictureBox_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] fileName = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (fileName.Length == 0) return;
+            ImageLocation = fileName[0];
+        }
     }
 
 }
