@@ -30,7 +30,7 @@ namespace OO_C_Sharp_WinFormsApp
         private ContextMenuStrip context1= new ContextMenuStrip();
 
         //保存ボタンを押した際に変更できるか判断するフラグ
-        private bool changeFlg;
+        private bool changeFlg = true;
 
         public PersonPanel(Person person)
         {
