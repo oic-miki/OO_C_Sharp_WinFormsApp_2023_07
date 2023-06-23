@@ -78,6 +78,9 @@ namespace OO_C_Sharp_WinFormsApp
 
             Text = "利用者登録";
 
+            setSize(1000, 1000);
+            setLocation(0, 0);
+
         }
 
         private void initializeDragDrop()
@@ -265,6 +268,24 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public RegisterUser setLocation(int x, int y)
+        {
+            this.Location = new Point(x, y);
+
+            return this;
+        }
+
+        public RegisterUser setSize(int width, int height)
+        {
+            this.Size = new Size(width, height);
+
+            return this;
+        }
+
+        private void RegisterUser_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class NullRegisterUser : RegisterUser, NullObject
