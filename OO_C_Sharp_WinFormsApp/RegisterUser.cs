@@ -55,7 +55,7 @@ namespace OO_C_Sharp_WinFormsApp
             InitializeComponent();
 
             initialize();
-
+            initializeDragDrop();
         }
 
         private void initialize()
@@ -80,6 +80,63 @@ namespace OO_C_Sharp_WinFormsApp
 
             setSize(500, 350);
             setLocation(0, 0);
+
+        }
+
+        private void initializeDragDrop()
+        {
+
+            DragOver += event_DragOver;
+            DragDrop += event_DragDrop;
+            DragEnter += event_DragEnter;
+            AllowDrop = true;
+
+        }
+
+        private void event_DragOver(object sender, DragEventArgs e)
+        {
+
+            e.Effect = DragDropEffects.Move;
+
+        }
+
+        private void event_DragDrop(object sender, DragEventArgs e)
+        {
+
+            object obj = e.Data.GetData(DataFormats.Serializable);
+            if (obj is PersonPanel)
+            {
+
+                PersonPanel personPanel = (obj as PersonPanel);
+
+                if (!Controls.Contains(personPanel))
+                {
+
+                    Controls.Add(personPanel);
+                    personPanel.SetChangeFlg(true);
+                }
+
+                e.Effect = DragDropEffects.Move;
+
+            }
+
+        }
+
+        private void event_DragEnter(object sender, DragEventArgs e)
+        {
+
+            if (e.Data.GetDataPresent(DataFormats.Serializable))
+            {
+
+                e.Effect = DragDropEffects.Move;
+
+            }
+            else
+            {
+
+                e.Effect = DragDropEffects.None;
+
+            }
 
         }
 

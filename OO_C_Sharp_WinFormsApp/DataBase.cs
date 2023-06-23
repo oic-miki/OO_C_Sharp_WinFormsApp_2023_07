@@ -384,6 +384,58 @@ namespace OO_C_Sharp_WinFormsApp
 
     }
 
+    public class BookDataBase : DataBase
+    {
+        private static BookDataBase bookDataBase = new BookDataBase();
+
+        private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
+            { };
+        private List<Book> users = new List<Book>();
+
+        public override int count()
+        {
+            return users.Count;
+        }
+
+        public override bool isEmpty()
+        {
+            return count() == 0;
+        }
+
+        public override int createNewId()
+        {
+            var sortedMap = dataBase.OrderBy(pair => pair.Key);
+            if (sortedMap.Any())
+            {
+
+                return sortedMap.Last().Key + 1;
+
+            }
+
+            return 1;
+        }
+
+        public static BookDataBase get()
+        {
+
+            return bookDataBase;
+
+        }
+
+        public BookDataBase save(Book book)
+        {
+
+            Debug.Assert(book != null);
+
+            dataBase.Add(book.getId(), book);
+
+            Debug.Assert(dataBase.ContainsKey(book.getId()));
+            Debug.Assert(dataBase[book.getId()].Equals(book));
+
+            return this;
+        }
+    }
+
     public class UserDataBase : DataBase
     {
 
