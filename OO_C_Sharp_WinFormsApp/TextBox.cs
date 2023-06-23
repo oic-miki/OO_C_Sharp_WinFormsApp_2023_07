@@ -5,152 +5,277 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OO_C_Sharp_WinFormsApp
-{
+namespace OO_C_Sharp_WinFormsApp {
 
-    public abstract class BaseTextBox : TextBox, ActionListener
-    {
+	public abstract class BaseTextBox : TextBox, ActionListener {
 
-        private Person person;
-        private List<Observer> observers = new List<Observer>();
+		private Person person;
+		private Book book;
+		private List<Observer> observers = new List<Observer>();
 
-        public BaseTextBox(Person person)
-        {
+		public BaseTextBox(Person person)
+		{
 
-            Debug.Assert(person != null);
+			Debug.Assert(person != null);
 
-            this.person = person;
+			this.person = person;
 
-            Debug.Assert(this.person != null);
+			Debug.Assert(this.person != null);
 
-        }
+		}
 
-        protected Person getPerson()
-        {
+		public BaseTextBox(Book book)
+		{
 
-            return person;
+			Debug.Assert(book != null);
 
-        }
+			this.book = book;
 
-        public void listen(object sender)
-        {
+			Debug.Assert(this.book != null);
 
-            if (sender is Event.Save)
-            {
+		}
 
-                // 声かけを伝搬する
-                listen();
 
-                // 変更を通知する
-                notify();
+		protected Person getPerson()
+		{
 
-            }
+			return person;
 
-        }
+		}
+		protected Book getBook()
+		{
+			return book;
+		}
 
-        protected abstract void listen();
+		public void listen(object sender)
+		{
 
-        private void notify()
-        {
+			if (sender is Event.Save)
+			{
 
-            // オブザーバーに更新を促す
-            foreach (Observer observer in observers)
-            {
+				// 声かけを伝搬する
+				listen();
 
-                observer.update();
+				// 変更を通知する
+				notify();
 
-            }
+			}
 
-        }
+		}
 
-        public BaseTextBox addObserver(Observer observer)
-        {
+		protected abstract void listen();
 
-            Debug.Assert(observer != null);
+		private void notify()
+		{
 
-            observers.Add(observer);
+			// オブザーバーに更新を促す
+			foreach (Observer observer in observers)
+			{
 
-            Debug.Assert(observers.Contains(observer));
+				observer.update();
 
-            return this;
+			}
 
-        }
+		}
 
-        public BaseTextBox setSize(int width, int height) 
-        {
-            Size = new Size(width, height);
+		public BaseTextBox addObserver(Observer observer)
+		{
 
-            return this;
-        }
+			Debug.Assert(observer != null);
 
-        public BaseTextBox setLocation(int x, int y)
-        {
+			observers.Add(observer);
 
-            // 表示位置を指定する
-            Location = new Point(x, y);
+			Debug.Assert(observers.Contains(observer));
 
-            return this;
+			return this;
 
-        }
+		}
 
-    }
+		public BaseTextBox setSize(int width, int height)
+		{
+			Size = new Size(width, height);
 
-    public class FamilyNameTextBox : BaseTextBox, Observer
-    {
+			return this;
+		}
 
-        public FamilyNameTextBox(Person person) : base(person)
-        {
+		public BaseTextBox setLocation(int x, int y)
+		{
 
-            Name = "familyNameTextBox";
+			// 表示位置を指定する
+			Location = new Point(x, y);
 
-            update();
+			return this;
 
-        }
+		}
 
-        public void update()
-        {
+	}
 
-            Text = getPerson().getFamilyName();
+	public class FamilyNameTextBox : BaseTextBox, Observer {
 
-        }
+		public FamilyNameTextBox(Person person) : base(person)
+		{
 
-        protected override void listen()
-        {
+			Name = "familyNameTextBox";
 
-            // 最新の情報を設定する
-            getPerson().addFamilyName(Text);
+			update();
 
-        }
+		}
 
-    }
+		public void update()
+		{
 
-    public class PersonNameTextBox : BaseTextBox, Observer
-    {
+			Text = getPerson().getFamilyName();
 
-        public PersonNameTextBox(Person person) : base(person)
-        {
+		}
 
-            Name = "personNameTextBox";
+		protected override void listen()
+		{
 
-            update();
+			// 最新の情報を設定する
+			getPerson().addFamilyName(Text);
 
-        }
+		}
 
-        public void update()
-        {
+	}
 
-            Text = getPerson().getName();
+	public class PersonNameTextBox : BaseTextBox, Observer {
 
-        }
+		public PersonNameTextBox(Person person) : base(person)
+		{
 
-        protected override void listen()
-        {
+			Name = "personNameTextBox";
 
-            // 最新の情報を設定する
-            getPerson().addName(Text);
+			update();
 
-        }
+		}
 
-    }
+		public void update()
+		{
+
+			Text = getPerson().getName();
+
+		}
+
+		protected override void listen()
+		{
+
+			// 最新の情報を設定する
+			getPerson().addName(Text);
+
+		}
+
+	}
+
+	namespace MyNamespace {
+		public class BookNameTextBox : BaseTextBox, Observer {
+
+			public BookNameTextBox(Book book) : base(book)
+			{
+
+				Name = "bookNameTextBox";
+
+				update();
+
+			}
+
+			public void update()
+			{
+
+				Text = getBook().getName();
+
+			}
+
+			protected override void listen()
+			{
+
+				// 最新の情報を設定する
+				getBook().addName(Text);
+
+			}
+
+		}
+		public class BookIsbnTextBox : BaseTextBox, Observer {
+
+			public BookIsbnTextBox(Book book) : base(book)
+			{
+
+				Name = "bookIsbnTextBox";
+
+				update();
+
+			}
+
+			public void update()
+			{
+
+				Text = getBook().getInternationalStandardBookNumber();
+
+			}
+
+			protected override void listen()
+			{
+
+				// 最新の情報を設定する
+				getBook().addInternationalStandardBookNumber(Text);
+
+			}
+
+		}
+		public class BookPriceTextBox : BaseTextBox, Observer {
+
+			public BookPriceTextBox(Book book) : base(book)
+			{
+
+				Name = "bookPriceTextBox";
+
+				update();
+
+			}
+
+			public void update()
+			{
+
+				Text = getBook().getPrice().ToString();
+
+			}
+
+			protected override void listen()
+			{
+
+				// 最新の情報を設定する
+				getBook().addPrice(int.Parse(Text));
+
+			}
+
+		}
+		public class BookFormatTextBox : BaseTextBox, Observer {
+
+			public BookFormatTextBox(Book book) : base(book)
+			{
+
+				Name = "bookFormatTextBox";
+
+				update();
+
+			}
+
+			public void update()
+			{
+
+				Text = getBook().getFormat();
+
+			}
+
+			protected override void listen()
+			{
+
+				// 最新の情報を設定する
+				getBook().addFormat(Text);
+
+			}
+
+		}
+
+	}
 
 }
