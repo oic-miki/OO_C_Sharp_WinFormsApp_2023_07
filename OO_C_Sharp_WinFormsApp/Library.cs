@@ -132,7 +132,7 @@ namespace OO_C_Sharp_WinFormsApp
                 {
 
                     Controls.Add(personPanel);
-
+                    personPanel.SetChangeFlg(false);
                 }
 
                 e.Effect = DragDropEffects.Move;
