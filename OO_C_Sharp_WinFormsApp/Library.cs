@@ -26,6 +26,13 @@ namespace OO_C_Sharp_WinFormsApp
         /// 登録済み利用者
         /// </summary>
         private PlaceRegisteredUserList registeredUserList;
+
+        /// <summary>
+        /// 登録済み本
+        /// </summary>
+        private PlaceRegisterBookList registerBookList;
+
+
         private int id;
         private String name;
 
@@ -48,7 +55,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PerformLayout();
 
-            setLocation(0,0).setSize(1000, 1000);
+            setLocation(0,0).setSize(1000, 500);
         }
 
         private void initializeDisplay()
@@ -94,11 +101,25 @@ namespace OO_C_Sharp_WinFormsApp
 
                 // 登録済み利用者の一覧を生成する
                 registeredUserList = new PlaceRegisteredUserList();
-                registeredUserList.setLocation(0, 0).setSize(1900, 0);
+                registeredUserList.setLocation(0, 0).setSize(500,350);
 
             }
 
             return registeredUserList;
+
+        }
+
+        private PlaceRegisterBookList getRegisterBookList()
+        {
+
+            if (registerBookList is null)
+            {
+                registerBookList = new PlaceRegisterBookList();
+                registerBookList.setLocation(0, 0).setSize(1000, 0);
+
+            }
+
+            return registerBookList;
 
         }
 
@@ -242,7 +263,27 @@ namespace OO_C_Sharp_WinFormsApp
             initializeDisplay();
 
         }
+        private void register(BookPlaceRegister? bookPlaceRegister)
+        {
 
+            if (bookPlaceRegister.getStatus().getValue().Equals(SaveStatus.Complete))
+            {
+
+                // DBに永続化する
+                //getRegisterBookList().save(bookPlaceRegister);
+
+            }
+            else
+            {
+
+                // 一時保存用のDBに永続化する
+                //getRegisterBookList().saveTemporary(bookPlaceRegister);
+
+            }
+
+            initializeDisplay();
+
+        }
         public Library show()
         {
 
@@ -267,6 +308,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             getRegisteredUserList().addApplication(this.application);
 
+            getRegisterBookList().addApplication(this.application);
+
             return this;
 
         }
@@ -288,6 +331,7 @@ namespace OO_C_Sharp_WinFormsApp
             }
 
             getRegisteredUserList().update();
+            getRegisterBookList().update();
 
         }
 
