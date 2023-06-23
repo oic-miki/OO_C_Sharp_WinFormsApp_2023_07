@@ -139,6 +139,11 @@ namespace OO_C_Sharp_WinFormsApp
         {
             string[] fileName = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (fileName.Length == 0) return;
+            var extensions = new List<string> { ".jpg", ".jpeg", ".png"};
+            var canDrawImage = extensions.Any(x => fileName[0].EndsWith(x));
+            if (!canDrawImage) return;
+            var dropImage = Image.FromFile(fileName[0]);
+            getPerson().addImage(dropImage);
             ImageLocation = fileName[0];
         }
     }
