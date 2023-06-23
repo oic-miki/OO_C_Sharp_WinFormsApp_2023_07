@@ -497,6 +497,7 @@ namespace OO_C_Sharp_WinFormsApp
             return this;
 
         }
+    }
 
     public class BookDataBase : DataBase
     {
@@ -505,7 +506,7 @@ namespace OO_C_Sharp_WinFormsApp
         private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
         {
             /*
-                
+
             */
         };
         private List<Book> books = new List<Book>();
@@ -517,16 +518,16 @@ namespace OO_C_Sharp_WinFormsApp
 
         public static BookDataBase get()
         {
-        
+
             return bookDataBase;
-        
+
         }
 
         public override int count()
         {
 
             return dataBase.Count;
-        
+
         }
 
         public override bool isEmpty()
