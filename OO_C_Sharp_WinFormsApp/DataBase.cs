@@ -507,21 +507,7 @@ namespace OO_C_Sharp_WinFormsApp
         private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
         {
             /*
-                1,
-            
-                2,
-                new ExtendedPerson(
-                // int id
-                2,
-                // Family family
-                FamilyDataBase.get().findById(2),
-                // String name
-                "Steven",
-                // DateTime birthday
-                makeBirthday(1946, 12, 18),
-                // Visual visual
-                VisualDataBase.get().findById(3))
-                }
+                
             */
         };
         private List<Book> books = new List<Book>();
