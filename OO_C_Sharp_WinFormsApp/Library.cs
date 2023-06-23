@@ -22,6 +22,7 @@ namespace OO_C_Sharp_WinFormsApp
         /// 利用者登録
         /// </summary>
         private RegisterUser registerUser = NullRegisterUser.get();
+        private RegisterBook registerBook = NullRegisterBook.get();
         /// <summary>
         /// 登録済み利用者
         /// </summary>
@@ -76,6 +77,18 @@ namespace OO_C_Sharp_WinFormsApp
 
             }
 
+
+            if(!getRegisterBookList().isEmpty())
+            {
+                getRegisterBookList().bringToFront().show();
+
+            }
+            else
+            {
+                getRegisterBookList().bringToFront().show();
+                getRegisterBook().bringToFront().show();
+
+            }
         }
 
         private RegisterUser getRegisterUser()
@@ -92,7 +105,20 @@ namespace OO_C_Sharp_WinFormsApp
             return registerUser;
 
         }
+        private RegisterBook getRegisterBook()
+        {
 
+            if (registerBook is NullObject)
+            {
+
+                // 管理者を作成するように設定して利用者登録を生成する
+                registerBook = new RegisterBook(this, Role.Administrator);
+
+            }
+
+            return registerBook;
+
+        }
         private PlaceRegisteredUserList getRegisteredUserList()
         {
 
@@ -115,7 +141,7 @@ namespace OO_C_Sharp_WinFormsApp
             if (registerBookList is null)
             {
                 registerBookList = new PlaceRegisterBookList();
-                registerBookList.setLocation(0, 0).setSize(1000, 0);
+                registerBookList.setLocation(0, 0).setSize(500, 350);
 
             }
 
@@ -270,14 +296,14 @@ namespace OO_C_Sharp_WinFormsApp
             {
 
                 // DBに永続化する
-                //getRegisterBookList().save(bookPlaceRegister);
+                getRegisterBookList().save(bookPlaceRegister);
 
             }
             else
             {
 
                 // 一時保存用のDBに永続化する
-                //getRegisterBookList().saveTemporary(bookPlaceRegister);
+                getRegisterBookList().saveTemporary(bookPlaceRegister);
 
             }
 

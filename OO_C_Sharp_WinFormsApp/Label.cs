@@ -6,209 +6,312 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OO_C_Sharp_WinFormsApp
-{
+namespace OO_C_Sharp_WinFormsApp {
 
-    public class Title : Label
-    {
+	public class Title : Label {
 
-        public Title(String text)
-        {
+		public Title(String text)
+		{
 
-            Debug.Assert(text != null);
+			Debug.Assert(text != null);
 
-            AutoSize = true;
-            TabStop = false;
-            Name = Text = text;
+			AutoSize = true;
+			TabStop = false;
+			Name = Text = text;
 
-        }
+		}
 
-        public Title setLocation(int x, int y)
-        {
+		public Title setLocation(int x, int y)
+		{
 
-            // 表示位置を指定する
-            Location = new Point(x, y);
+			// 表示位置を指定する
+			Location = new Point(x, y);
 
-            return this;
+			return this;
 
-        }
+		}
 
-    }
+	}
 
-    public abstract class BaseLabel : Label, Observer
-    {
+	public abstract class BaseLabel : Label, Observer {
 
-        private Person person;
+		private Person person;
+		private Book book;
 
-        public BaseLabel(Person person)
-        {
+		public BaseLabel(Person person)
+		{
 
-            Debug.Assert(person != null);
+			Debug.Assert(person != null);
 
-            this.person = person;
+			this.person = person;
 
-            Debug.Assert(this.person != null);
+			Debug.Assert(this.person != null);
 
-            AutoSize = true;
-            TabStop = false;
+			AutoSize = true;
+			TabStop = false;
 
-        }
+		}
+		public BaseLabel(Book book)
+		{
 
-        protected Person getPerson()
-        {
+			Debug.Assert(book != null);
 
-            return person;
+			this.book = book;
 
-        }
+			Debug.Assert(this.book != null);
 
-        public abstract void update();
+			AutoSize = true;
+			TabStop = false;
 
-        public BaseLabel setLocation(int x, int y)
-        {
+		}
+		protected Person getPerson()
+		{
 
-            // 表示位置を指定する
-            Location = new Point(x, y);
+			return person;
 
-            return this;
+		}
+		protected Book getBook()
+		{
 
-        }
+			return book;
 
-        public BaseLabel setFontSize(int size)
-        {
-            this.Font = new Font(Font.FontFamily, size);
+		}
+		public abstract void update();
 
-            return this;
-        }
+		public BaseLabel setLocation(int x, int y)
+		{
 
-    }
+			// 表示位置を指定する
+			Location = new Point(x, y);
 
-    public class PersonIdLabel : BaseLabel
-    {
+			return this;
 
-        public PersonIdLabel(Person person) : base(person)
-        {
+		}
 
-            Name = "personIdLabel";
+		public BaseLabel setFontSize(int size)
+		{
+			this.Font = new Font(Font.FontFamily, size);
 
-            update();
+			return this;
+		}
 
-        }
+	}
 
-        public override void update()
-        {
+	public class PersonIdLabel : BaseLabel {
 
-            // 最新の情報を表示する
-            Text = getPerson().getId().ToString();
+		public PersonIdLabel(Person person) : base(person)
+		{
 
-        }
+			Name = "personIdLabel";
 
-    }
-    
-    public class UserRoleLabel : BaseLabel
-    {
+			update();
 
-        private User user;
-        private RoleMap roleMap = RoleMap.get();
+		}
 
-        public UserRoleLabel(User user) : base(user)
-        {
+		public override void update()
+		{
 
-            this.user = user;
+			// 最新の情報を表示する
+			Text = getPerson().getId().ToString();
 
-            Debug.Assert(this.user != null);
-            Debug.Assert(this.user.Equals(user));
+		}
 
-            Name = "userRoleLabel";
+	}
 
-            update();
+	public class UserRoleLabel : BaseLabel {
 
-        }
+		private User user;
+		private RoleMap roleMap = RoleMap.get();
 
-        public override void update()
-        {
+		public UserRoleLabel(User user) : base(user)
+		{
 
-            // 最新の情報を表示する
-            if (user.isAdministrator())
-            {
+			this.user = user;
 
-                Text = roleMap.acquireAlias(Role.Administrator);
+			Debug.Assert(this.user != null);
+			Debug.Assert(this.user.Equals(user));
 
-            }
-            else
-            {
+			Name = "userRoleLabel";
 
-                Text = roleMap.acquireAlias(Role.None);
+			update();
 
-            }
+		}
 
-        }
+		public override void update()
+		{
 
-    }
+			// 最新の情報を表示する
+			if (user.isAdministrator())
+			{
 
-    public class FamilyNameLabel : BaseLabel, Observer
-    {
+				Text = roleMap.acquireAlias(Role.Administrator);
 
-        public FamilyNameLabel(Person person) : base(person)
-        {
+			}
+			else
+			{
 
-            Name = "familyNameLabel";
+				Text = roleMap.acquireAlias(Role.None);
 
-            update();
+			}
 
-        }
+		}
 
-        public override void update()
-        {
+	}
 
-            // 最新の情報を表示する
-            Text = getPerson().getFamilyName();
+	public class FamilyNameLabel : BaseLabel, Observer {
 
-        }
+		public FamilyNameLabel(Person person) : base(person)
+		{
 
-    }
+			Name = "familyNameLabel";
 
-    public class PersonNameLabel : BaseLabel, Observer
-    {
+			update();
 
-        public PersonNameLabel(Person person) : base(person)
-        {
+		}
 
-            Name = "personNameLabel";
+		public override void update()
+		{
 
-            update();
+			// 最新の情報を表示する
+			Text = getPerson().getFamilyName();
 
-        }
+		}
 
-        public override void update()
-        {
+	}
 
-            // 最新の情報を表示する
-            Text = getPerson().getName();
+	public class PersonNameLabel : BaseLabel, Observer {
 
-        }
+		public PersonNameLabel(Person person) : base(person)
+		{
 
-    }
-    
-    public class AgeLabel : BaseLabel, Observer
-    {
+			Name = "personNameLabel";
 
-        public AgeLabel(Person person) : base(person)
-        {
+			update();
 
-            Name = "ageLabel";
+		}
 
-            update();
+		public override void update()
+		{
 
-        }
+			// 最新の情報を表示する
+			Text = getPerson().getName();
 
-        public override void update()
-        {
+		}
 
-            // 最新の情報を表示する
-            Text = getPerson().age().ToString();
+	}
 
-        }
+	public class AgeLabel : BaseLabel, Observer {
 
-    }
+		public AgeLabel(Person person) : base(person)
+		{
+
+			Name = "ageLabel";
+
+			update();
+
+		}
+
+		public override void update()
+		{
+
+			// 最新の情報を表示する
+			Text = getPerson().age().ToString();
+
+		}
+
+	}
+
+	namespace Book_ {
+		public class BookIdLabel : BaseLabel {
+
+			public BookIdLabel(Book book) : base(book)
+			{
+
+				Name = "bookIdLabel";
+
+				update();
+
+			}
+
+			public override void update()
+			{
+
+				// 最新の情報を表示する
+				Text = getBook().getId().ToString();
+
+			}
+		}
+
+		public class BookNameLabel : BaseLabel, Observer {
+
+			public BookNameLabel(Book book) : base(book)
+			{
+
+				Name = "bookNameLabel";
+
+				update();
+
+			}
+
+			public override void update()
+			{
+				// 最新の情報を表示する
+				Text = getBook().getName();
+
+			}
+
+		}
+		public class BookIsbnLabel : BaseLabel, Observer {
+
+			public BookIsbnLabel(Book book) : base(book)
+			{
+
+				Name = "bookIsbnLabel";
+
+				update();
+
+			}
+
+			public override void update()
+			{
+				// 最新の情報を表示する
+				Text = getBook().getInternationalStandardBookNumber();
+			}
+		}
+		public class BookPriceLabel : BaseLabel, Observer {
+
+			public BookPriceLabel(Book book) : base(book)
+			{
+
+				Name = "bookPriceLabel";
+
+				update();
+
+			}
+
+			public override void update()
+			{
+				// 最新の情報を表示する
+				Text = getBook().getPrice().ToString();
+			}
+		}
+		public class BookFormatLabel : BaseLabel, Observer {
+
+			public BookFormatLabel(Book book) : base(book)
+			{
+
+				Name = "bookFormatLabel";
+
+				update();
+
+			}
+
+			public override void update()
+			{
+				// 最新の情報を表示する
+				Text = getBook().getFormat();
+			}
+		}
+	}
 
 }

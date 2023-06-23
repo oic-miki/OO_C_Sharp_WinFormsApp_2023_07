@@ -1,4 +1,6 @@
-﻿namespace OO_C_Sharp_WinFormsApp
+﻿using System.ComponentModel;
+
+namespace OO_C_Sharp_WinFormsApp
 {
     partial class RegisterBookList
     {
@@ -28,10 +30,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+
+            SuspendLayout();
+
+            /*
+             * フォーム
+             */
+            // 
+            // registeredUserList
+            // 
+            components = new Container();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+
+            Name = "registerBookList";
+            Text = "registerBookList";
+
+            ResumeLayout(false);
+
+            PerformLayout();
+
         }
 
         #endregion

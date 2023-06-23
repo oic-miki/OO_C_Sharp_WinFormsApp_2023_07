@@ -131,8 +131,36 @@ namespace OO_C_Sharp_WinFormsApp
 
     }
 
+
+    public class NullBookPlaceRegister : BookPlaceRegister, NullObject
+    {
+
+        private static BookPlaceRegister bookPlaceRegister = new NullBookPlaceRegister();
+
+        public NullBookPlaceRegister() : base(NullPlace.get(), NullBook.get())
+        {
+
+        }
+
+        public static BookPlaceRegister get()
+        {
+
+            return bookPlaceRegister;
+
+        }
+
+        public override BookPlaceRegister setStatus(Status status)
+        {
+
+            return this;
+
+        }
+
+    }
+
     public class BookPlaceRegister : PlaceRegister
     {
+        private static BookPlaceRegister bookPlaceRegister = new NullBookPlaceRegister();
 
         private Book book;
 
@@ -152,6 +180,12 @@ namespace OO_C_Sharp_WinFormsApp
             return book;
         }
 
+        public static BookPlaceRegister get()
+        {
+
+            return bookPlaceRegister;
+
+        }
     }
 
     public class NullUserPlaceRegister : UserPlaceRegister, NullObject
