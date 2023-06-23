@@ -168,8 +168,8 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			BookIdLabel bookIdLabel = new BookIdLabel(book);
 
-			//bookIdLabel.setLocation(100, 30).Size = new Size(38, 15);
-			//bookIdLabel.setLocation(100, 30).setSize(38,15);
+			bookIdLabel.setLocation(100, 30).Size = new Size(38, 15);
+			//bookIdLabel.setLocation(100, 30);
 
 			// オブザーバーとして登録する
 			addObserver(bookIdLabel);
@@ -198,7 +198,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			BookNameLabel bookNameLabel = new BookNameLabel(book);
 
-			//bookNameLabel.setLocation(100, 120);
+			bookNameLabel.setLocation(100, 60).Size= new Size(38, 15);
 			// オブザーバーとして登録する
 			addObserver(bookNameLabel);
 
@@ -209,7 +209,7 @@ namespace OO_C_Sharp_WinFormsApp {
 		{
 			var bookNameTextBox = new BookNameTextBox(book);
 
-			bookNameTextBox.setLocation(220, 118).setSize(100, 23);
+			bookNameTextBox.setLocation(220, 60).setSize(100, 23);
 			bookNameTextBox.TabIndex = tabIndex;
 
 			// オブザーバーとして登録する
@@ -226,7 +226,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			Title title = new Title("ISBN");
 
-			title.setLocation(30, 120).Size = new Size(38, 15);
+			title.setLocation(30, 90).Size = new Size(38, 15);
 
 			return title;
 
@@ -237,7 +237,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			BookIsbnLabel bookIsbnLabel = new BookIsbnLabel(book);
 
-			//bookIsbnLabel.setLocation(100, 120);
+			bookIsbnLabel.setLocation(100, 90);
 			// オブザーバーとして登録する
 			addObserver(bookIsbnLabel);
 
@@ -248,7 +248,7 @@ namespace OO_C_Sharp_WinFormsApp {
 		{
 			var bookIsbnTextBox = new BookIsbnTextBox(book);
 
-			bookIsbnTextBox.setLocation(220, 118).setSize(100, 23);
+			bookIsbnTextBox.setLocation(220, 88).setSize(100, 23);
 			bookIsbnTextBox.TabIndex = tabIndex;
 
 			// オブザーバーとして登録する
