@@ -389,12 +389,12 @@ namespace OO_C_Sharp_WinFormsApp
         private static BookDataBase bookDataBase = new BookDataBase();
 
         private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
-            { };
-        private List<Book> users = new List<Book>();
+        { };
+        private List<Book> books = new List<Book>();
 
         public override int count()
         {
-            return users.Count;
+            return dataBase.Count;
         }
 
         public override bool isEmpty()
@@ -422,6 +422,17 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+
+        public List<Book> list()
+        {
+
+            books.Clear();
+
+            books.AddRange(dataBase.Values);
+
+            return books;
+
+        }
         public BookDataBase save(Book book)
         {
 
@@ -432,6 +443,11 @@ namespace OO_C_Sharp_WinFormsApp
             Debug.Assert(dataBase.ContainsKey(book.getId()));
             Debug.Assert(dataBase[book.getId()].Equals(book));
 
+            return this;
+        }
+        public BookDataBase removeAll()
+        {
+            bookDataBase.removeAll();
             return this;
         }
     }
@@ -448,7 +464,7 @@ namespace OO_C_Sharp_WinFormsApp
         {
 
             Family family = FamilyDataBase.get().findById(3);
-            
+
             // Fatory Method を利用した実装です
             /*
             save(new AdministratorCreator().create().addFamilyName(family.getName()).addName("管理者A") as User);
@@ -527,7 +543,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         public UserDataBase save(User user)
         {
-            
+
             if (user is not RecordableUser)
             {
 
