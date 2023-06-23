@@ -568,7 +568,7 @@ namespace OO_C_Sharp_WinFormsApp
 
     }
 
-    public class BookDataBase : DataBase
+    public class BookDataBaseMock : DataBase
     {
         private static BookDataBase bookDataBase = new BookDataBase();
 
@@ -580,7 +580,7 @@ namespace OO_C_Sharp_WinFormsApp
         };
         private List<Book> books = new List<Book>();
 
-        private BookDataBase()
+        private BookDataBaseMock()
         {
 
         }
