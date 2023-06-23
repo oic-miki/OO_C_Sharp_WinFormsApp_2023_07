@@ -160,7 +160,8 @@ namespace OO_C_Sharp_WinFormsApp
         }
         private void textBoxClear(object sender, EventArgs e)
         {
-            
+            var c = Controls.OfType<TextBox>();
+            foreach(TextBox t in c) { t.Text = ""; }
         }
 
         /// <summary>
