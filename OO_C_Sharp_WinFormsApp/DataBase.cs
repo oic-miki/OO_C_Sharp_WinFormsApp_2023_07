@@ -384,74 +384,6 @@ namespace OO_C_Sharp_WinFormsApp
 
     }
 
-    public class BookDataBase : DataBase
-    {
-        private static BookDataBase bookDataBase = new BookDataBase();
-
-        private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
-        { };
-        private List<Book> books = new List<Book>();
-
-        public override int count()
-        {
-            return dataBase.Count;
-        }
-
-        public override bool isEmpty()
-        {
-            return count() == 0;
-        }
-
-        public override int createNewId()
-        {
-            var sortedMap = dataBase.OrderBy(pair => pair.Key);
-            if (sortedMap.Any())
-            {
-
-                return sortedMap.Last().Key + 1;
-
-            }
-
-            return 1;
-        }
-
-        public static BookDataBase get()
-        {
-
-            return bookDataBase;
-
-        }
-
-
-        public List<Book> list()
-        {
-
-            books.Clear();
-
-            books.AddRange(dataBase.Values);
-
-            return books;
-
-        }
-        public BookDataBase save(Book book)
-        {
-
-            Debug.Assert(book != null);
-
-            dataBase.Add(book.getId(), book);
-
-            Debug.Assert(dataBase.ContainsKey(book.getId()));
-            Debug.Assert(dataBase[book.getId()].Equals(book));
-
-            return this;
-        }
-        public BookDataBase removeAll()
-        {
-            bookDataBase.removeAll();
-            return this;
-        }
-    }
-
     public class UserDataBase : DataBase
     {
 
@@ -566,6 +498,109 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+    public class BookDataBase : DataBase
+    {
+        private static BookDataBase bookDataBase = new BookDataBase();
+
+        private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
+        {
+            /*
+                
+            */
+        };
+        private List<Book> books = new List<Book>();
+
+        private BookDataBase()
+        {
+
+        }
+
+        public static BookDataBase get()
+        {
+        
+            return bookDataBase;
+        
+        }
+
+        public override int count()
+        {
+
+            return dataBase.Count;
+        
+        }
+
+        public override bool isEmpty()
+        {
+
+            return count() == 0;
+
+        }
+
+        public override int createNewId()
+        {
+
+            /*
+             * 一意制約違反にならないようにIDの最大値を取得する
+             */
+            IOrderedEnumerable<KeyValuePair<int, Book>> sortedMap = dataBase.OrderBy(pair => pair.Key);
+            if (sortedMap.Count() > 0)
+            {
+
+                return sortedMap.Last().Key + 1;
+
+            }
+
+            return 1;
+        }
+
+        public Book findById(int id)
+        {
+
+            Debug.Assert(id > 0);
+
+            try
+            {
+
+                return dataBase[id];
+
+            }
+            catch (KeyNotFoundException e)
+            {
+
+                // NOP
+
+            }
+
+            return NullBook.get();
+
+        }
+
+        public List<Book> list()
+        {
+            books.Clear();
+
+            books.AddRange(dataBase.Values);
+
+            return books;
+        }
+
+        public BookDataBase save(Book book)
+        {
+            Debug.Assert(book != null);
+
+            dataBase.Add(book.getId(), book);
+
+            Debug.Assert(dataBase.ContainsKey(book.getId()));
+            Debug.Assert(dataBase[book.getId()].Equals(book));
+
+            return this;
+        }
+
+        public BookDataBase removeAll()
+        {
+            dataBase.Clear();
+
+            return this;
+        }
     }
-    
 }
