@@ -27,6 +27,10 @@ namespace OO_C_Sharp_WinFormsApp
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
+        private ContextMenuStrip context1= new ContextMenuStrip();
+
+        //保存ボタンを押した際に変更できるか判断するフラグ
+        private bool changeFlg;
 
         public PersonPanel(Person person)
         {
@@ -102,6 +106,10 @@ namespace OO_C_Sharp_WinFormsApp
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
 
+            if (true)   //新規登録ウィンドウにあるPersonPanelであるばあい
+                addRegisterContextMenu();
+            /*else if (false)   ライブラリウィンドウにあるPersonPanelであるばあい
+                addLibraryContextMenu();*/
         }
 
         private void initializeDragDrop()
@@ -142,6 +150,17 @@ namespace OO_C_Sharp_WinFormsApp
 
             bringToFront();
 
+        }
+
+        private void addRegisterContextMenu()
+        {
+            context1.Items.Add("入力クリア",null,textBoxClear);
+
+            ContextMenuStrip = context1;
+        }
+        private void textBoxClear(object sender, EventArgs e)
+        {
+            
         }
 
         /// <summary>
@@ -368,7 +387,7 @@ namespace OO_C_Sharp_WinFormsApp
             //personNameLabel.setLocation(100, 120);
             // オブザーバーとして登録する
             addObserver(personNameLabel);
-
+            
             return personNameLabel;
 
         }
@@ -500,7 +519,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void saveButton_Click(object? sender, EventArgs e)
         {
-
+            if (!changeFlg) return;
             // 保存イベントのリスナーに声をかける
             foreach (ActionListener actionListener in actionListeners)
             {
@@ -626,6 +645,31 @@ namespace OO_C_Sharp_WinFormsApp
             return this;
         }
 
+        //PersonPanelを変更できるようにするか
+        public void SetChangeFlg(bool flg)
+        {
+            changeFlg = flg;
+
+            foreach(var listener in actionListeners)
+            {
+
+                if (listener is ComboBox)
+                {
+                    var comboBox = listener as ComboBox;
+                    comboBox.Enabled = flg;
+                }
+                else if (listener is TextBox)
+                {
+                    var textBox = listener as TextBox;
+                    textBox.ReadOnly = !flg;
+                }
+                else if(listener is DateTimePicker)
+                {
+                    var datePicker = listener as DateTimePicker;
+                    datePicker.Enabled = flg;
+                }
+            }
+        }
     }
 
 }
