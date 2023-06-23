@@ -26,7 +26,7 @@ namespace OO_C_Sharp_WinFormsApp
             /*
              * フォーム
              */
-            Text = "登録済み利用者";
+            Text = "登録済み本リスト";
 
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
@@ -111,21 +111,21 @@ namespace OO_C_Sharp_WinFormsApp
 
             removeControlAll();
 
-            int userCount = getBookDB().count();
+            int bookCount = getBookDB().count();
 
-            if (userCount > 0)
+            if (bookCount > 0)
             {
 
                 int x = 20;
                 int y = 20;
-                int incrementalValueOfX = 800 / userCount - 100;
-                int incrementalValueOfY = 450 / userCount - 50;
+                int incrementalValueOfX = 800 / bookCount - 100;
+                int incrementalValueOfY = 450 / bookCount - 50;
 
-                foreach (Person user in getBookDB().list())
+                foreach (Person book in getBookDB().list())
                 {
 
                     // 利用者情報のパネルを生成する
-                    PersonPanel personPanel = new PersonPanel(user);
+                    PersonPanel personPanel = new PersonPanel(book);
 
                     /*
                      * 最初に、ビューワー用の利用者情報のパネルを生成し、ビューワーへ追加する。
@@ -133,7 +133,7 @@ namespace OO_C_Sharp_WinFormsApp
                      * その次に、活性化のハンドラーとして登録する。
                      * 最後に、利用者情報のパネルを追加する。
                      */
-                    add(personPanel.addViewer(personPanelViewer.add(new PersonPanel(user))).addActivationHandler(personPanelViewer).setLocation(x, y));
+                    add(personPanel.addViewer(personPanelViewer.add(new PersonPanel(book))).addActivationHandler(personPanelViewer).setLocation(x, y));
 
                     x += incrementalValueOfX;
                     y += incrementalValueOfY;
@@ -313,21 +313,21 @@ namespace OO_C_Sharp_WinFormsApp
     public class PlaceRegisterBookList : RegisterBookList
     {
 
-        public RegisterBookList save(UserPlaceRegister userPlaceRegister)
+        public RegisterBookList save(BookPlaceRegister BookPlaceRegister)
         {
 
-            Debug.Assert(userPlaceRegister != null);
+            Debug.Assert(BookPlaceRegister != null);
 
-            //getBookDB().save(userPlaceRegister.getBook());
+            getBookDB().save(BookPlaceRegister.getBook());
 
             return this;
 
         }
 
-        public RegisterBookList saveTemporary(UserPlaceRegister userPlaceRegister)
+        public RegisterBookList saveTemporary(BookPlaceRegister BookPlaceRegister)
         {
 
-            Debug.Assert(userPlaceRegister != null);
+            Debug.Assert(BookPlaceRegister != null);
 
             // ※一時保存は未実装
 
