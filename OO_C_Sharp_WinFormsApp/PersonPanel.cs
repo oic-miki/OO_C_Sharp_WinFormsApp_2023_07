@@ -202,7 +202,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonIdLabel personIdLabel = new PersonIdLabel(person);
 
-            //personIdLabel.setLocation(100, 30).Size = new Size(38, 15);
+            personIdLabel.setLocation(100, 30).Size = new Size(38, 15);
            //personIdLabel.setLocation(100, 30).setSize(38,15);
 
             // オブザーバーとして登録する
@@ -365,7 +365,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameLabel personNameLabel = new PersonNameLabel(person);
 
-            //personNameLabel.setLocation(100, 120);
+            personNameLabel.setLocation(100, 120);
             // オブザーバーとして登録する
             addObserver(personNameLabel);
 

@@ -78,7 +78,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             Text = "利用者登録";
 
-            setSize(1000, 1000);
+            setSize(500, 350);
             setLocation(0, 0);
 
         }
