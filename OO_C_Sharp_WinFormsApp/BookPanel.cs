@@ -56,9 +56,22 @@ namespace OO_C_Sharp_WinFormsApp {
 			Controls.Add(createBookIsbnLabel(book));
 			Controls.Add(createBookIsbnTextBox(book, tabIndex++));
 
-			/*
-			 * パネル
-			 */
+
+			Controls.Add(createBookPriceTitle());
+			Controls.Add(createBookPriceLabel(book));
+			Controls.Add(createBookPriceTextBox(book, tabIndex++));
+
+			Controls.Add(createBookPriceTitle());
+			Controls.Add(createBookPriceLabel(book));
+			Controls.Add(createBookPriceTextBox(book, tabIndex++));
+
+
+			Controls.Add(createBookFormatTitle());
+			Controls.Add(createBookFormatLabel(book));
+			Controls.Add(createBookFormatTextBox(book, tabIndex++));
+			Controls.Add(createSaveButton(tabIndex++));
+
+			
 			setLocation(20, 20);
 			setClientSize(450, 250);
 			BorderStyle = BorderStyle.Fixed3D;
@@ -198,7 +211,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			BookNameLabel bookNameLabel = new BookNameLabel(book);
 
-			bookNameLabel.setLocation(100, 60).Size= new Size(38, 15);
+			bookNameLabel.setLocation(100, 60).Size = new Size(38, 15);
 			// オブザーバーとして登録する
 			addObserver(bookNameLabel);
 
@@ -237,7 +250,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			BookIsbnLabel bookIsbnLabel = new BookIsbnLabel(book);
 
-			bookIsbnLabel.setLocation(100, 90);
+			bookIsbnLabel.setLocation(100, 90).Size = new Size(38, 15);
 			// オブザーバーとして登録する
 			addObserver(bookIsbnLabel);
 
@@ -263,7 +276,7 @@ namespace OO_C_Sharp_WinFormsApp {
 		private Title createBookPriceTitle()
 		{
 
-			Title title = new Title("名");
+			Title title = new Title("価格");
 
 			title.setLocation(30, 120).Size = new Size(38, 15);
 
@@ -275,8 +288,7 @@ namespace OO_C_Sharp_WinFormsApp {
 		{
 
 			BookPriceLabel bookPriceLabel = new BookPriceLabel(book);
-
-			//bookPriceLabel.setLocation(100, 120);
+			bookPriceLabel.setLocation(100, 120);
 			// オブザーバーとして登録する
 			addObserver(bookPriceLabel);
 
@@ -302,9 +314,9 @@ namespace OO_C_Sharp_WinFormsApp {
 		private Title createBookFormatTitle()
 		{
 
-			Title title = new Title("名");
+			Title title = new Title("フォーマット");
 
-			title.setLocation(30, 120).Size = new Size(38, 15);
+			title.setLocation(30, 150).Size = new Size(38, 15);
 
 			return title;
 
@@ -315,7 +327,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			BookFormatLabel bookFormatLabel = new BookFormatLabel(book);
 
-			//bookFormatLabel.setLocation(100, 120);
+			bookFormatLabel.setLocation(100, 150);
 			// オブザーバーとして登録する
 			addObserver(bookFormatLabel);
 
@@ -326,7 +338,7 @@ namespace OO_C_Sharp_WinFormsApp {
 		{
 			var bookFormatTextBox = new BookFormatTextBox(book);
 
-			bookFormatTextBox.setLocation(220, 118).setSize(100, 23);
+			bookFormatTextBox.setLocation(220, 148).setSize(100, 23);
 			bookFormatTextBox.TabIndex = tabIndex;
 
 			// オブザーバーとして登録する
@@ -338,6 +350,8 @@ namespace OO_C_Sharp_WinFormsApp {
 			return bookFormatTextBox;
 
 		}
+
+
 		private Button createSaveButton(int tabIndex)
 		{
 
