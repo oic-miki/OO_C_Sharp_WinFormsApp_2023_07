@@ -60,7 +60,7 @@ namespace OO_C_Sharp_WinFormsApp
         private void initialize()
         {
             
-            Controls.Add(new BookPanel(new BookModel(1,"name",100,"format","abc")).addActionListener(this));
+            Controls.Add(new BookPanel(new BookModel(1,"name",1000,"format","abc",BookModel.LendState.Lendable)).addActionListener(this));
 
             Text = "本登録";
 
