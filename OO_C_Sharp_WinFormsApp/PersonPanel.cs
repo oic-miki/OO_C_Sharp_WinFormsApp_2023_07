@@ -110,6 +110,7 @@ namespace OO_C_Sharp_WinFormsApp
                 addRegisterContextMenu();
             /*else if (false)   ライブラリウィンドウにあるPersonPanelであるばあい
                 addLibraryContextMenu();*/
+            
         }
 
         private void initializeDragDrop()
@@ -154,10 +155,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void addRegisterContextMenu()
         {
-            context1.Items.Add("入力クリア",null,textBoxClear);
+            context1.Items.Add("入力クリア", null, textBoxClear);
 
             ContextMenuStrip = context1;
         }
+
         private void textBoxClear(object sender, EventArgs e)
         {
             var c = Controls.OfType<TextBox>();
@@ -678,6 +680,12 @@ namespace OO_C_Sharp_WinFormsApp
                     datePicker.Enabled = flg;
                 }
             }
+        }
+
+        //サインインしているかどうか(仮でtrue返してます)
+        public bool IsSignin()
+        {
+            return true;
         }
     }
 

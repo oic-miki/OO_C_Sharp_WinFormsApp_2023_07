@@ -61,7 +61,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void initializeDisplay()
         {
-
+            //人
             if (getRegisteredUserList().isEmpty())
             {
 
@@ -77,7 +77,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             }
 
-
+            //本
             if(!getRegisterBookList().isEmpty())
             {
                 getRegisterBookList().bringToFront().show();
@@ -127,7 +127,7 @@ namespace OO_C_Sharp_WinFormsApp
 
                 // 登録済み利用者の一覧を生成する
                 registeredUserList = new PlaceRegisteredUserList();
-                registeredUserList.setLocation(0, 0).setSize(500,350);
+                registeredUserList.setLocation(10, 10).setSize(500,350);
 
             }
 
