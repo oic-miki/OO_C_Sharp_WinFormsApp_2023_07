@@ -99,7 +99,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void initialize()
         {
-            getBookDB().save(new BookModel(1, "name", 1000, "format", "isbn"));
+            getBookDB().save(new BookModel(1, "name", 1000, "format", "isbn",BookModel.LendState.Loaned));
 
             initializeDisplay();
 

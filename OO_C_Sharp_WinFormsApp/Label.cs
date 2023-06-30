@@ -312,6 +312,32 @@ namespace OO_C_Sharp_WinFormsApp {
 				Text = getBook().getFormat();
 			}
 		}
+		public class BookLendLabel : BaseLabel, Observer {
+
+			public BookLendLabel(Book book) : base(book)
+			{
+
+
+				Name = "貸出可能";
+
+				update();
+
+			}
+
+			public override void update()
+			{
+				// 最新の情報を表示する
+				if (getBook().getLendState() == BookModel.LendState.Lendable)
+				{
+					Text = "貸出可能";
+				}
+				else if (getBook().getLendState() == BookModel.LendState.Loaned)
+				{
+					Text = "貸出中";
+				}
+
+			}
+		}
 	}
 
 }
