@@ -155,6 +155,7 @@ namespace OO_C_Sharp_WinFormsApp
         private void addRegisterContextMenu()
         {
             context1.Items.Add("入力クリア",null,textBoxClear);
+            context1.Items.Add("保存", null, ContextSave);
 
             ContextMenuStrip = context1;
         }
@@ -172,6 +173,10 @@ namespace OO_C_Sharp_WinFormsApp
             foreach(PersonImagePictureBox pictureBox in Controls.OfType<PersonImagePictureBox>()) { pictureBox.Image = Properties.Resources.noImage_60x80; }
         }
 
+        private void ContextSave(object sender, EventArgs e)
+        {
+            saveButton_Click(sender, e);
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref='System.Drawing.Point'/> class with the specified coordinates.
         /// </summary>
