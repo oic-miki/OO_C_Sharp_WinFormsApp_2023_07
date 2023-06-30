@@ -27,6 +27,12 @@ namespace OO_C_Sharp_WinFormsApp
         String getInternationalStandardBookNumber();
 
         Book addInternationalStandardBookNumber(String isbn);
+
+        Book setLendState(BookModel.LendState lendState);
+
+		BookModel.LendState getLendState();
+		Book lendBook();
+
     }
 
     public class NullBook : BookModel, NullObject
@@ -55,6 +61,10 @@ namespace OO_C_Sharp_WinFormsApp
              * 本のサイズ
              */
             base.addFormat("");
+            /*
+          * 貸し出しフラグ
+          */
+			base.setLendState(LendState.None);
         }
 
         public static Book get()
@@ -81,160 +91,196 @@ namespace OO_C_Sharp_WinFormsApp
     public class BookModel : Book
     {
 
-        private int id;
-        private String name ="";
-        private int price;
-        private String format;
-        private String isbn;
-        
-        public BookModel()
-        {
-            /*
-             * ID
-             */
-            addId(0);
+	    private int id;
+	    private String name = "";
+	    private int price;
+	    private String format;
+	    private String isbn;
 
-            /*
-            * 本名
-            */
-            addName("");
+	    public enum LendState
+	    {
+		    None,
+		    Lendable,
+		    Loaned,
+	    }
 
-            /*
-            * 金額
-            */
-            addPrice(0);
-
-            /*
-             * 本のサイズ
-             */
-            addFormat("");
-
-            /*
-            * ISBN
-            */
-            addInternationalStandardBookNumber("");
-        }
-        
-
-        public BookModel(int id, String name, int price, string format, String isbn)
-        {
-
-            /*
-             * ID
-             */
-            addId(id);
-
-            /*
-             * 本名
-             */
-            addName(name);
-
-            /*
-             * 金額
-             */
-            addPrice(price);
-
-            /*
-             * 本のサイズ
-             */
-            addFormat(format);
-
-            /*
-            * ISBN
-            */
-            addInternationalStandardBookNumber(isbn);
-        }
+	    private LendState lendState;
 
 
-        public int getId()
-        {
+	    public BookModel()
+	    {
+		    /*
+		     * ID
+		     */
+		    addId(0);
 
-            return id;
-        
-        }
+		    /*
+		    * 本名
+		    */
+		    addName("");
 
-        public Book addId(int id)
-        {
-            Debug.Assert(id >= 0);
+		    /*
+		    * 金額
+		    */
+		    addPrice(0);
 
-            this.id = id;
+		    /*
+		     * 本のサイズ
+		     */
+		    addFormat("");
 
-            Debug.Assert(this.id >= 0);
+		    /*
+		    * ISBN
+		    */
+		    addInternationalStandardBookNumber("");
+		    /*
+		   * 貸し出しフラグ
+		   */
+		    setLendState(LendState.None);
 
-            return this;
-        }
+	    }
 
-        public string getName()
-        {
-       
-            return name;
-        
-        }
 
-        public virtual Book addName(string name)
-        {
-            Debug.Assert(name != null);
+	    public BookModel(int id, String name, int price, string format, String isbn, LendState lendState)
+	    {
 
-            this.name = name;
+		    /*
+		     * ID
+		     */
+		    addId(id);
 
-            Debug.Assert(this.name != null);
+		    /*
+		     * 本名
+		     */
+		    addName(name);
 
-            return this;
+		    /*
+		     * 金額
+		     */
+		    addPrice(price);
 
-        }
+		    /*
+		     * 本のサイズ
+		     */
+		    addFormat(format);
 
-        public int getPrice()
-        {
-           
-            return price;
-        
-        }
+		    /*
+		    * ISBN
+		    */
+		    addInternationalStandardBookNumber(isbn);
+		    /*
+           * 貸し出しフラグ
+           */
+		    setLendState(lendState);
+	    }
 
-        public virtual Book addPrice(int price)
-        {
-            Debug.Assert(price >=0 );
 
-            this.price = price;
+	    public int getId()
+	    {
 
-            Debug.Assert(this.price >=0);
-            return this;
-        }
+		    return id;
 
-        public String getFormat()
-        {
-          
-            return format;
-        
-        }
+	    }
 
-        public virtual Book addFormat(String format)
-        {
-            Debug.Assert(format != null);
+	    public Book addId(int id)
+	    {
+		    Debug.Assert(id >= 0);
 
-            this.format = format;
+		    this.id = id;
 
-            Debug.Assert(this.format != null);
+		    Debug.Assert(this.id >= 0);
 
-            return this;
-        }
+		    return this;
+	    }
 
-        public string getInternationalStandardBookNumber()
-        {
+	    public string getName()
+	    {
 
-            return isbn;
+		    return name;
 
-        }
+	    }
 
-        public Book addInternationalStandardBookNumber(string isbn)
-        {
-            Debug.Assert(isbn != null);
+	    public virtual Book addName(string name)
+	    {
+		    Debug.Assert(name != null);
 
-            this.isbn = isbn;
+		    this.name = name;
 
-            Debug.Assert(this.isbn != null);
+		    Debug.Assert(this.name != null);
 
-            return this;
+		    return this;
 
-        }
+	    }
+
+	    public int getPrice()
+	    {
+
+		    return price;
+
+	    }
+
+	    public virtual Book addPrice(int price)
+	    {
+		    Debug.Assert(price >= 0);
+
+		    this.price = price;
+
+		    Debug.Assert(this.price >= 0);
+		    return this;
+	    }
+
+	    public String getFormat()
+	    {
+
+		    return format;
+
+	    }
+
+	    public virtual Book addFormat(String format)
+	    {
+		    Debug.Assert(format != null);
+
+		    this.format = format;
+
+		    Debug.Assert(this.format != null);
+
+		    return this;
+	    }
+
+	    public string getInternationalStandardBookNumber()
+	    {
+
+		    return isbn;
+
+	    }
+
+	    public Book addInternationalStandardBookNumber(string isbn)
+	    {
+		    Debug.Assert(isbn != null);
+
+		    this.isbn = isbn;
+
+		    Debug.Assert(this.isbn != null);
+
+		    return this;
+
+	    }
+
+	    public Book setLendState(LendState lendState)
+	    {
+		    this.lendState = lendState;
+		    return this;
+	    }
+
+	    public LendState getLendState()
+	    {
+		    return lendState;
+	    }
+
+	    public Book lendBook()
+	    {
+		    this.lendState = LendState.Loaned;
+		    return this;
+	    }
     }
 }
