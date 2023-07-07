@@ -23,6 +23,7 @@ namespace OO_C_Sharp_WinFormsApp
     {
 
         private int id;
+        private Place place;
         private List<Viewer> viewers = new List<Viewer>();
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
@@ -552,6 +553,23 @@ namespace OO_C_Sharp_WinFormsApp
         private void notify()
         {
 
+            if (place is Library)
+            {
+
+                foreach(Control control in Controls)
+                {
+
+                    if (control is TextBox)
+                    {
+
+                        control.Enabled = false;
+
+                    }
+
+                }
+                
+            }
+
             // オブザーバーに更新を促す
             foreach (Observer observer in observers)
             {
@@ -650,6 +668,21 @@ namespace OO_C_Sharp_WinFormsApp
         {
 
             notify();
+
+            return this;
+
+        }
+
+        public PersonPanel addPlace(Place place)
+        {
+
+            Debug.Assert(place != null);
+
+            this.place = place;
+
+            notify();
+
+            Debug.Assert(place != null);
 
             return this;
 

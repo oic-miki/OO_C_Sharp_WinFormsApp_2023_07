@@ -16,7 +16,7 @@ namespace OO_C_Sharp_WinFormsApp
     /// <summary>
     /// 利用者登録
     /// </summary>
-    public partial class RegisterUser : Form, ActionListener
+    public partial class RegisterUser : Form, Place, ActionListener
     {
 
         private Place place = NullPlace.get();
@@ -112,8 +112,8 @@ namespace OO_C_Sharp_WinFormsApp
                 if (!Controls.Contains(personPanel))
                 {
 
-                    Controls.Add(personPanel);
-                    personPanel.SetChangeFlg(true);
+                    Controls.Add(personPanel.addPlace(this));
+//                    personPanel.SetChangeFlg(true);
                 }
 
                 e.Effect = DragDropEffects.Move;
@@ -285,6 +285,26 @@ namespace OO_C_Sharp_WinFormsApp
         private void RegisterUser_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public int getId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string getName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Place addName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Place add(PlaceRegister placeRegister)
+        {
+            throw new NotImplementedException();
         }
     }
 

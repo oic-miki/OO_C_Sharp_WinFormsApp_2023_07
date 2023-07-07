@@ -178,8 +178,8 @@ namespace OO_C_Sharp_WinFormsApp
                 if (!Controls.Contains(personPanel))
                 {
 
-                    Controls.Add(personPanel);
-                    personPanel.SetChangeFlg(false);
+                    Controls.Add(personPanel.addPlace(this));
+//                    personPanel.SetChangeFlg(false);
                 }
 
                 e.Effect = DragDropEffects.Move;
