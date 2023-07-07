@@ -552,23 +552,39 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void notify()
         {
+            bool isLibrary = place is Library;
+            //if (place is Library)
+            //{
 
-            if (place is Library)
+            foreach (Control control in Controls)
             {
 
-                foreach(Control control in Controls)
+                if (control is TextBox)
                 {
 
-                    if (control is TextBox)
-                    {
-
-                        control.Enabled = false;
-
-                    }
+                    control.Enabled = !isLibrary;
 
                 }
-                
+                else if (control is ComboBox)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
+                else if (control is DateTimePicker)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
+                else if (control is Button)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
             }
+            //}
 
             // オブザーバーに更新を促す
             foreach (Observer observer in observers)
