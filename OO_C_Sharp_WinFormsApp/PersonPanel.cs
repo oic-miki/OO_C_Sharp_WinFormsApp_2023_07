@@ -88,6 +88,7 @@ namespace OO_C_Sharp_WinFormsApp
             /*
              * コンテキストメニュー
              */
+            
             ContextMenuStrip = new SampleContextMenuStrip();
 
             /*
@@ -114,13 +115,8 @@ namespace OO_C_Sharp_WinFormsApp
         private void event_MouseDown(object sender, MouseEventArgs e)
         {
 
-            if (DoDragDrop(this, DragDropEffects.Move) == DragDropEffects.Move)
-            {
-
-                setLocation(e.X, e.Y);
-
-            }
-            else if (e.Button == MouseButtons.Right)
+           
+            if (e.Button == MouseButtons.Right)
             {
 
                 if (ContextMenuStrip != null)
@@ -132,7 +128,12 @@ namespace OO_C_Sharp_WinFormsApp
                 }
 
             }
+            else if (DoDragDrop(this, DragDropEffects.Move) == DragDropEffects.Move)
+            {
 
+                setLocation(e.X, e.Y);
+
+            }
             foreach (ActivationHandler activationHandler in activationHandlers)
             {
 

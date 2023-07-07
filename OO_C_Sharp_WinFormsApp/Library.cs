@@ -49,6 +49,7 @@ namespace OO_C_Sharp_WinFormsApp
             PerformLayout();
 
             setLocation(0,0).setSize(1000, 1000);
+            
         }
 
         private void initializeDisplay()
