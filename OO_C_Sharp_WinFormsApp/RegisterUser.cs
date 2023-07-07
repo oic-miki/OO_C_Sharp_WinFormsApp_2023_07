@@ -65,14 +65,14 @@ namespace OO_C_Sharp_WinFormsApp
             {
 
                 // 指定された役割で新規に利用者を作成する
-                Controls.Add(new PersonPanel(user = new ExtendedUser(role)).addActionListener(this));
+                Controls.Add(new PersonPanel(user = new ExtendedUser(role)).addActionListener(this).addPlace(this));
 
             }
             else
             {
 
                 // 新規に利用者を作成する
-                Controls.Add(new PersonPanel(user = new ExtendedUser()).addActionListener(this));
+                Controls.Add(new PersonPanel(user = new ExtendedUser()).addActionListener(this).addPlace(this));
 
             }
 

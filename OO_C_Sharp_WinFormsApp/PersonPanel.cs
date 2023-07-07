@@ -113,8 +113,10 @@ namespace OO_C_Sharp_WinFormsApp
            
             if (place is Library)   //ライブラリウィンドウにあるPersonPanelであるばあい
                 addLibraryContextMenu();
-            else  //新規登録ウィンドウにあるPersonPanelであるばあい
+            else if(place is RegisterUser)  //新規登録ウィンドウにあるPersonPanelであるばあい
                 addRegisterContextMenu();
+            else if(place is RegisteredUserList)
+                addUserListContextMenu();
         }
 
         private void initializeDragDrop()
@@ -176,10 +178,21 @@ namespace OO_C_Sharp_WinFormsApp
             ContextMenuStrip= context2;
         }
 
+        private void addUserListContextMenu()
+        {
+            context1.Items.Clear();
+            context1.Items.Add("example");
+
+            ContextMenuStrip = context1;
+        }
+
         private void textBoxClear(object sender, EventArgs e)
         {
             var c = Controls.OfType<TextBox>();
             foreach(TextBox t in c) { t.Text = ""; }
+
+            var label =Controls.OfType<UserRoleLabel>();
+            foreach(UserRoleLabel t in label) { t.Text = "利用者"; }
 
             var comboBoxes = Controls.OfType<ComboBox>();
             foreach(ComboBox combo in comboBoxes) { combo.SelectedIndex = 0; }
@@ -567,12 +580,13 @@ namespace OO_C_Sharp_WinFormsApp
         private void notify()
         {
             bool isLibrary = place is Library;
-            //if (place is Library)
-            //{
+
             if (place is Library)   //ライブラリウィンドウにあるPersonPanelであるばあい
                 addLibraryContextMenu();
-            else  //新規登録ウィンドウにあるPersonPanelであるばあい
+            else if (place is RegisterUser) //新規登録ウィンドウにあるPersonPanelであるばあい
                 addRegisterContextMenu();
+            else if (place is RegisteredUserList)
+                addUserListContextMenu();
 
 
             foreach (Control control in Controls)
