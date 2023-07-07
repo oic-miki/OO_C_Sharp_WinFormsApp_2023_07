@@ -131,6 +131,63 @@ namespace OO_C_Sharp_WinFormsApp
 
     }
 
+
+    public class NullBookPlaceRegister : BookPlaceRegister, NullObject
+    {
+
+        private static BookPlaceRegister bookPlaceRegister = new NullBookPlaceRegister();
+
+        public NullBookPlaceRegister() : base(NullPlace.get(), NullBook.get())
+        {
+
+        }
+
+        public static BookPlaceRegister get()
+        {
+
+            return bookPlaceRegister;
+
+        }
+
+        public override BookPlaceRegister setStatus(Status status)
+        {
+
+            return this;
+
+        }
+
+    }
+
+    public class BookPlaceRegister : PlaceRegister
+    {
+        private static BookPlaceRegister bookPlaceRegister = new NullBookPlaceRegister();
+
+        private Book book;
+
+        public BookPlaceRegister(Place place, Book book) : base(place)
+        {
+
+            Debug.Assert(book != null);
+
+            this.book = book;
+
+            Debug.Assert(this.book != null);
+
+        }
+
+        public Book getBook()
+        {
+            return book;
+        }
+
+        public static BookPlaceRegister get()
+        {
+
+            return bookPlaceRegister;
+
+        }
+    }
+
     public class NullUserPlaceRegister : UserPlaceRegister, NullObject
     {
 

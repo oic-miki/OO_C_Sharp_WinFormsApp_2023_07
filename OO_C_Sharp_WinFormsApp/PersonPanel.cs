@@ -23,10 +23,15 @@ namespace OO_C_Sharp_WinFormsApp
     {
 
         private int id;
+        private Place place;
         private List<Viewer> viewers = new List<Viewer>();
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
+        private ContextMenuStrip context1= new ContextMenuStrip();
+
+        //保存ボタンを押した際に変更できるか判断するフラグ
+        private bool changeFlg = true;
 
         public PersonPanel(Person person)
         {
@@ -103,6 +108,11 @@ namespace OO_C_Sharp_WinFormsApp
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
 
+            if (true)   //新規登録ウィンドウにあるPersonPanelであるばあい
+                addRegisterContextMenu();
+            /*else if (false)   ライブラリウィンドウにあるPersonPanelであるばあい
+                addLibraryContextMenu();*/
+            
         }
 
         private void initializeDragDrop()
@@ -145,6 +155,32 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        private void addRegisterContextMenu()
+        {
+            context1.Items.Add("入力クリア",null,textBoxClear);
+            context1.Items.Add("保存", null, ContextSave);
+
+            ContextMenuStrip = context1;
+        }
+
+        private void textBoxClear(object sender, EventArgs e)
+        {
+            var c = Controls.OfType<TextBox>();
+            foreach(TextBox t in c) { t.Text = ""; }
+
+            var comboBoxes = Controls.OfType<ComboBox>();
+            foreach(ComboBox combo in comboBoxes) { combo.SelectedIndex = 0; }
+
+            var dateTimePickers = Controls.OfType<DateTimePicker>();
+            foreach(DateTimePicker dateTimePicker in dateTimePickers) { dateTimePicker.Value = DateTime.Today; }
+
+            foreach(PersonImagePictureBox pictureBox in Controls.OfType<PersonImagePictureBox>()) { pictureBox.Image = Properties.Resources.noImage_60x80; }
+        }
+
+        private void ContextSave(object sender, EventArgs e)
+        {
+            saveButton_Click(sender, e);
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref='System.Drawing.Point'/> class with the specified coordinates.
         /// </summary>
@@ -203,7 +239,7 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonIdLabel personIdLabel = new PersonIdLabel(person);
 
-            //personIdLabel.setLocation(100, 30).Size = new Size(38, 15);
+            personIdLabel.setLocation(100, 30).Size = new Size(38, 15);
            //personIdLabel.setLocation(100, 30).setSize(38,15);
 
             // オブザーバーとして登録する
@@ -366,10 +402,10 @@ namespace OO_C_Sharp_WinFormsApp
 
             PersonNameLabel personNameLabel = new PersonNameLabel(person);
 
-            //personNameLabel.setLocation(100, 120);
+            personNameLabel.setLocation(100, 120);
             // オブザーバーとして登録する
             addObserver(personNameLabel);
-
+            
             return personNameLabel;
 
         }
@@ -501,7 +537,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void saveButton_Click(object? sender, EventArgs e)
         {
-
+            if (!changeFlg) return;
             // 保存イベントのリスナーに声をかける
             foreach (ActionListener actionListener in actionListeners)
             {
@@ -517,6 +553,39 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void notify()
         {
+            bool isLibrary = place is Library;
+            //if (place is Library)
+            //{
+
+            foreach (Control control in Controls)
+            {
+
+                if (control is TextBox)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
+                else if (control is ComboBox)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
+                else if (control is DateTimePicker)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
+                else if (control is Button)
+                {
+
+                    control.Enabled = !isLibrary;
+
+                }
+            }
+            //}
 
             // オブザーバーに更新を促す
             foreach (Observer observer in observers)
@@ -621,12 +690,58 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public PersonPanel addPlace(Place place)
+        {
+
+            Debug.Assert(place != null);
+
+            this.place = place;
+
+            Debug.Assert(this.place != null);
+
+            notify();
+
+            return this;
+
+        }
+
         public PersonPanel setClientSize(int weight,int height)
         {
             ClientSize = new Size(weight, height);
             return this;
         }
 
+        //PersonPanelを変更できるようにするか
+        public void SetChangeFlg(bool flg)
+        {
+            changeFlg = flg;
+
+            foreach(var listener in actionListeners)
+            {
+
+                if (listener is ComboBox)
+                {
+                    var comboBox = listener as ComboBox;
+                    comboBox.Enabled = flg;
+                }
+                else if (listener is TextBox)
+                {
+                    var textBox = listener as TextBox;
+                    textBox.ReadOnly = !flg;
+                }
+                else if(listener is DateTimePicker)
+                {
+                    var datePicker = listener as DateTimePicker;
+                    datePicker.Enabled = flg;
+                }
+            }
+        }
+
+        //サインインしているかどうか(仮でtrue返してます)
+        public bool IsSignin()
+        {
+            return true;
+        }
     }
 
 }

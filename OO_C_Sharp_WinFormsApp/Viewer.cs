@@ -10,172 +10,265 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace OO_C_Sharp_WinFormsApp
-{
+namespace OO_C_Sharp_WinFormsApp {
 
-    public interface Viewer
-    {
+	public interface Viewer {
 
-        Viewer add(Control control);
+		Viewer add(Control control);
 
-        Viewer removeControlAll();
+		Viewer removeControlAll();
 
-        Viewer show();
+		Viewer show();
 
-        Viewer setSize(int width,int height);
+		Viewer setSize(int width, int height);
 
-    }
+	}
 
-    public class NullViewer : Viewer, NullObject
-    {
+	public class NullViewer : Viewer, NullObject {
 
-        private static Viewer viewer = new NullViewer();
+		private static Viewer viewer = new NullViewer();
 
-        private NullViewer()
-        {
+		private NullViewer()
+		{
 
-        }
+		}
 
-        public static Viewer get()
-        {
+		public static Viewer get()
+		{
 
-            return viewer;
+			return viewer;
 
-        }
+		}
 
-        public Viewer add(Control control)
-        {
+		public Viewer add(Control control)
+		{
 
-            return this;
+			return this;
 
-        }
+		}
 
-        public Viewer removeControlAll()
-        {
+		public Viewer removeControlAll()
+		{
 
-            return this;
+			return this;
 
-        }
+		}
 
-        public Viewer show()
-        {
+		public Viewer show()
+		{
 
-            return this;
+			return this;
 
-        }
+		}
 
-        public Viewer setSize(int width, int height)
-        {
-	        return this;
-        }
+		public Viewer setSize(int width, int height)
+		{
+			return this;
+		}
 
-        public Viewer activate(int id)
-        {
-	        return this;
+		public Viewer activate(int id)
+		{
+			return this;
 
-        }
+		}
 
-    }
+	}
 
-    public partial class PersonPanelViewer : Form, Viewer, ActionListener, ActivationHandler
-    {
+	public partial class PersonPanelViewer : Form, Viewer, ActionListener, ActivationHandler {
 
-        private Dictionary<int, PersonPanel> PersonPanelMap = new Dictionary<int, PersonPanel>();
+		private Dictionary<int, PersonPanel> PersonPanelMap = new Dictionary<int, PersonPanel>();
 
-        public PersonPanelViewer()
-        {
-            
-            InitializeComponent();
+		public PersonPanelViewer()
+		{
 
-            Text = "PersonPanelViewer";
+			InitializeComponent();
 
-        }
+			Text = "PersonPanelViewer";
 
-        public Viewer add(Control control)
-        {
+		}
 
-            Debug.Assert(control != null);
+		public Viewer add(Control control)
+		{
 
-            // Control が PersonPanel であれば追加する
-            if (control is PersonPanel)
-            {
+			Debug.Assert(control != null);
 
-                PersonPanel personPanel = control as PersonPanel;
+			// Control が PersonPanel であれば追加する
+			if (control is PersonPanel)
+			{
 
-                Controls.Add(personPanel.addViewer(this));
-                PersonPanelMap.Add(personPanel.getId(), personPanel);
+				PersonPanel personPanel = control as PersonPanel;
 
-                Debug.Assert(Controls.Contains(personPanel));
-                Debug.Assert(PersonPanelMap.ContainsKey(personPanel.getId()));
-                Debug.Assert(PersonPanelMap.ContainsValue(personPanel));
+				Controls.Add(personPanel.addViewer(this));
+				PersonPanelMap.Add(personPanel.getId(), personPanel);
 
-            }
-            else
-            {
+				Debug.Assert(Controls.Contains(personPanel));
+				Debug.Assert(PersonPanelMap.ContainsKey(personPanel.getId()));
+				Debug.Assert(PersonPanelMap.ContainsValue(personPanel));
 
-                Controls.Add(control);
+			}
+			else
+			{
 
-            }
+				Controls.Add(control);
 
-            return this;
+			}
 
-        }
+			return this;
 
-        public Viewer removeControlAll()
-        {
+		}
 
-            foreach (Control control in Controls)
-            {
+		public Viewer removeControlAll()
+		{
 
-                Controls.Remove(control);
+			foreach (Control control in Controls)
+			{
 
-                Debug.Assert(!Controls.Contains(control));
+				Controls.Remove(control);
 
-            }
+				Debug.Assert(!Controls.Contains(control));
 
-            PersonPanelMap.Clear();
+			}
 
-            Debug.Assert(PersonPanelMap.Count == 0);
+			PersonPanelMap.Clear();
 
-            return this;
+			Debug.Assert(PersonPanelMap.Count == 0);
 
-        }
+			return this;
 
-        public Viewer show()
-        {
+		}
 
-            Show();
+		public Viewer show()
+		{
 
-            return this;
+			Show();
 
-        }
+			return this;
 
-        public void listen(object sender)
-        {
+		}
 
-            foreach (PersonPanel personPanel in PersonPanelMap.Values)
-            {
+		public void listen(object sender)
+		{
 
-                personPanel.refresh();
+			foreach (PersonPanel personPanel in PersonPanelMap.Values)
+			{
 
-            }
+				personPanel.refresh();
 
-        }
+			}
 
-        public void activate(int id)
-        {
+		}
 
-            Debug.Assert(id >= 0);
+		public void activate(int id)
+		{
 
-            PersonPanelMap[id].bringToFront();
+			Debug.Assert(id >= 0);
 
-        }
+			PersonPanelMap[id].bringToFront();
 
-        public Viewer setSize(int width, int height)
-        {
-	        Size = new Size(width, height);
-          return this;
-        }
-    }
+		}
+
+		public Viewer setSize(int width, int height)
+		{
+			Size = new Size(width, height);
+			return this;
+		}
+	}
+
+	public partial class BookPanelViewer : Form, Viewer, ActionListener, ActivationHandler {
+		private Dictionary<int, BookPanel> BookPanelMap = new();
+
+		public BookPanelViewer()
+		{
+			InitializeComponent();
+			Text = "BookPanelViewer";
+
+		}
+
+		public Viewer add(Control control)
+		{
+
+			Debug.Assert(control != null);
+
+			// Control が BookPanel であれば追加する
+			if (control is BookPanel)
+			{
+
+				BookPanel bookPanel = control as BookPanel;
+
+				Controls.Add(bookPanel.addViewer(this));
+				BookPanelMap.Add(bookPanel.getId(), bookPanel);
+
+				Debug.Assert(Controls.Contains(bookPanel));
+				Debug.Assert(BookPanelMap.ContainsKey(bookPanel.getId()));
+				Debug.Assert(BookPanelMap.ContainsValue(bookPanel));
+
+			}
+			else
+			{
+
+				Controls.Add(control);
+
+			}
+
+			return this;
+
+		}
+
+		public Viewer removeControlAll()
+		{
+
+			foreach (Control control in Controls)
+			{
+
+				Controls.Remove(control);
+
+				Debug.Assert(!Controls.Contains(control));
+
+			}
+
+			BookPanelMap.Clear();
+
+			Debug.Assert(BookPanelMap.Count == 0);
+
+			return this;
+
+		}
+
+		public Viewer show()
+		{
+
+			Show();
+
+			return this;
+
+		}
+
+		public void listen(object sender)
+		{
+
+			foreach (BookPanel bookPanel in BookPanelMap.Values)
+			{
+
+				bookPanel.refresh();
+
+			}
+
+		}
+
+		public void activate(int id)
+		{
+
+			Debug.Assert(id >= 0);
+
+			BookPanelMap[id].bringToFront();
+
+		}
+
+		public Viewer setSize(int width, int height)
+		{
+			Size = new Size(width, height);
+			return this;
+		}
+	}
 
 }

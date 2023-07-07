@@ -22,10 +22,18 @@ namespace OO_C_Sharp_WinFormsApp
         /// 利用者登録
         /// </summary>
         private RegisterUser registerUser = NullRegisterUser.get();
+        private RegisterBook registerBook = NullRegisterBook.get();
         /// <summary>
         /// 登録済み利用者
         /// </summary>
         private PlaceRegisteredUserList registeredUserList;
+
+        /// <summary>
+        /// 登録済み本
+        /// </summary>
+        private PlaceRegisterBookList registerBookList;
+
+
         private int id;
         private String name;
 
@@ -49,12 +57,11 @@ namespace OO_C_Sharp_WinFormsApp
             PerformLayout();
 
             setLocation(0,0).setSize(1000, 1000);
-            
         }
 
         private void initializeDisplay()
         {
-
+            //人
             if (getRegisteredUserList().isEmpty())
             {
 
@@ -70,6 +77,18 @@ namespace OO_C_Sharp_WinFormsApp
 
             }
 
+            //本
+            if(!getRegisterBookList().isEmpty())
+            {
+                getRegisterBookList().bringToFront().show();
+
+            }
+            else
+            {
+                getRegisterBookList().bringToFront().show();
+                getRegisterBook().bringToFront().show();
+
+            }
         }
 
         private RegisterUser getRegisterUser()
@@ -86,7 +105,20 @@ namespace OO_C_Sharp_WinFormsApp
             return registerUser;
 
         }
+        private RegisterBook getRegisterBook()
+        {
 
+            if (registerBook is NullObject)
+            {
+
+                // 管理者を作成するように設定して利用者登録を生成する
+                registerBook = new RegisterBook(this, Role.Administrator);
+
+            }
+
+            return registerBook;
+
+        }
         private PlaceRegisteredUserList getRegisteredUserList()
         {
 
@@ -95,11 +127,25 @@ namespace OO_C_Sharp_WinFormsApp
 
                 // 登録済み利用者の一覧を生成する
                 registeredUserList = new PlaceRegisteredUserList();
-                registeredUserList.setLocation(0, 0).setSize(1900, 0);
+                registeredUserList.setLocation(10, 10).setSize(500,350);
 
             }
 
             return registeredUserList;
+
+        }
+
+        private PlaceRegisterBookList getRegisterBookList()
+        {
+
+            if (registerBookList is null)
+            {
+                registerBookList = new PlaceRegisterBookList();
+                registerBookList.setLocation(0, 0).setSize(500, 350);
+
+            }
+
+            return registerBookList;
 
         }
 
@@ -132,8 +178,8 @@ namespace OO_C_Sharp_WinFormsApp
                 if (!Controls.Contains(personPanel))
                 {
 
-                    Controls.Add(personPanel);
-
+                    Controls.Add(personPanel.addPlace(this));
+//                    personPanel.SetChangeFlg(false);
                 }
 
                 e.Effect = DragDropEffects.Move;
@@ -243,7 +289,27 @@ namespace OO_C_Sharp_WinFormsApp
             initializeDisplay();
 
         }
+        private void register(BookPlaceRegister? bookPlaceRegister)
+        {
 
+            if (bookPlaceRegister.getStatus().getValue().Equals(SaveStatus.Complete))
+            {
+
+                // DBに永続化する
+                getRegisterBookList().save(bookPlaceRegister);
+
+            }
+            else
+            {
+
+                // 一時保存用のDBに永続化する
+                getRegisterBookList().saveTemporary(bookPlaceRegister);
+
+            }
+
+            initializeDisplay();
+
+        }
         public Library show()
         {
 
@@ -268,6 +334,8 @@ namespace OO_C_Sharp_WinFormsApp
 
             getRegisteredUserList().addApplication(this.application);
 
+            getRegisterBookList().addApplication(this.application);
+
             return this;
 
         }
@@ -289,6 +357,7 @@ namespace OO_C_Sharp_WinFormsApp
             }
 
             getRegisteredUserList().update();
+            getRegisterBookList().update();
 
         }
 

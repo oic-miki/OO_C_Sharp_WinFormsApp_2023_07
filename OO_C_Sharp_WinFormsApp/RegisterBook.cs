@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,20 +11,20 @@ using System.Windows.Forms;
 
 namespace OO_C_Sharp_WinFormsApp
 {
-
+    
     /// <summary>
     /// 利用者登録
     /// </summary>
-    public partial class RegisterUser : Form, Place, ActionListener
+    public partial class RegisterBook : Form, ActionListener
     {
 
         private Place place = NullPlace.get();
-        private User user = NullUser.get();
+        private Book book = NullBook.get();
         private Role role = Role.None;
-        private PlaceRegister placeRegister = NullPersonPlaceRegister.get();
+        private PlaceRegister placeRegister = NullBookPlaceRegister.get();
         private Status status = new Status();
 
-        public RegisterUser(Place place)
+        public RegisterBook(Place place)
         {
 
             Debug.Assert(place != null);
@@ -40,7 +39,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
-        public RegisterUser(Place place, Role role)
+        public RegisterBook(Place place, Role role)
         {
 
             Debug.Assert(place != null);
@@ -60,23 +59,10 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void initialize()
         {
+            
+            Controls.Add(new BookPanel(new BookModel(1,"name",1000,"format","abc",BookModel.LendState.Lendable)).addActionListener(this));
 
-            if (role is not Role.None)
-            {
-
-                // 指定された役割で新規に利用者を作成する
-                Controls.Add(new PersonPanel(user = new ExtendedUser(role)).addActionListener(this));
-
-            }
-            else
-            {
-
-                // 新規に利用者を作成する
-                Controls.Add(new PersonPanel(user = new ExtendedUser()).addActionListener(this));
-
-            }
-
-            Text = "利用者登録";
+            Text = "本登録";
 
             setSize(500, 350);
             setLocation(0, 0);
@@ -104,16 +90,15 @@ namespace OO_C_Sharp_WinFormsApp
         {
 
             object obj = e.Data.GetData(DataFormats.Serializable);
-            if (obj is PersonPanel)
+            if (obj is BookPanel)
             {
 
-                PersonPanel personPanel = (obj as PersonPanel);
+                BookPanel bookPanelMock = (obj as BookPanel);
 
-                if (!Controls.Contains(personPanel))
+                if (!Controls.Contains(bookPanelMock))
                 {
 
-                    Controls.Add(personPanel.addPlace(this));
-//                    personPanel.SetChangeFlg(true);
+                    Controls.Add(bookPanelMock);
                 }
 
                 e.Effect = DragDropEffects.Move;
@@ -143,14 +128,14 @@ namespace OO_C_Sharp_WinFormsApp
         /// <summary>
         ///  Makes the control display by setting the visible property to true
         /// </summary>
-        public virtual RegisterUser show()
+        public virtual RegisterBook show()
         {
 
             if (placeRegister is NullObject)
             {
 
                 // データ登録用のオブジェクトを生成する
-                placeRegister = new UserPlaceRegister(place, user).setStatus(status.addValue(SaveStatus.Temporary));
+                placeRegister = new BookPlaceRegister(place, book).setStatus(status.addValue(SaveStatus.Temporary));
 
             }
 
@@ -164,7 +149,7 @@ namespace OO_C_Sharp_WinFormsApp
         /// <summary>
         ///  Brings this control to the front of the zorder.
         /// </summary>
-        public virtual RegisterUser bringToFront()
+        public virtual RegisterBook bringToFront()
         {
 
             // 最前面に配置する
@@ -178,7 +163,7 @@ namespace OO_C_Sharp_WinFormsApp
         /// 一時保存
         /// </summary>
         /// <returns></returns>
-        public virtual RegisterUser save()
+        public virtual RegisterBook save()
         {
 
             place.add(placeRegister);
@@ -191,7 +176,7 @@ namespace OO_C_Sharp_WinFormsApp
         /// 登録
         /// </summary>
         /// <returns></returns>
-        public virtual RegisterUser register()
+        public virtual RegisterBook register()
         {
 
             place.add(placeRegister.setStatus(status.addValue(SaveStatus.Complete)));
@@ -204,12 +189,12 @@ namespace OO_C_Sharp_WinFormsApp
         /// 登録終了
         /// </summary>
         /// <returns></returns>
-        public virtual RegisterUser finish()
+        public virtual RegisterBook finish()
         {
 
             Controls.RemoveAt(0);
 
-            user = NullUser.get();
+            book = NullBook.get();
 
             return hide();
 
@@ -218,7 +203,7 @@ namespace OO_C_Sharp_WinFormsApp
         /// <summary>
         ///  Hides the control by setting the visible property to false;
         /// </summary>
-        public virtual RegisterUser hide()
+        public virtual RegisterBook hide()
         {
 
             // 非表示にする
@@ -238,7 +223,7 @@ namespace OO_C_Sharp_WinFormsApp
 
         private Application application = NullApplication.get();
 
-        public RegisterUser addApplication(Application application)
+        public RegisterBook addApplication(Application application)
         {
 
             Debug.Assert(application != null);
@@ -253,10 +238,10 @@ namespace OO_C_Sharp_WinFormsApp
                 foreach (Control control in Controls)
                 {
 
-                    if (control is PersonPanel)
+                    if (control is BookPanel)
                     {
 
-                        (control as PersonPanel).addObserver(application as Observer);
+                        (control as BookPanel).addObserver(application as Observer);
 
                     }
 
@@ -268,92 +253,72 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
-        public RegisterUser setLocation(int x, int y)
+        public RegisterBook setLocation(int x, int y)
         {
             this.Location = new Point(x, y);
 
             return this;
         }
 
-        public RegisterUser setSize(int width, int height)
+        public RegisterBook setSize(int width, int height)
         {
             this.Size = new Size(width, height);
 
             return this;
         }
 
-        private void RegisterUser_Load(object sender, EventArgs e)
+        private void RegisterBook_Load(object sender, EventArgs e)
         {
 
-        }
-
-        public int getId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string getName()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Place addName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Place add(PlaceRegister placeRegister)
-        {
-            throw new NotImplementedException();
         }
     }
 
-    public class NullRegisterUser : RegisterUser, NullObject
+    public class NullRegisterBook : RegisterBook, NullObject
     {
 
-        private static RegisterUser registerUser = new NullRegisterUser();
+        private static RegisterBook registerBook = new NullRegisterBook();
 
-        private NullRegisterUser() : base(NullPlace.get())
+        private NullRegisterBook() : base(NullPlace.get())
         {
 
         }
 
-        public static RegisterUser get()
+        public static RegisterBook get()
         {
 
-            return registerUser;
+            return registerBook;
 
         }
 
-        public override RegisterUser show()
-        {
-
-            return this;
-
-        }
-
-        public override RegisterUser bringToFront()
+        public override RegisterBook show()
         {
 
             return this;
 
         }
 
-        public override RegisterUser register()
+        public override RegisterBook bringToFront()
         {
 
             return this;
 
         }
 
-        public override RegisterUser finish()
+        public override RegisterBook register()
         {
 
             return this;
 
         }
 
-        public override RegisterUser hide()
+        public override RegisterBook finish()
+        {
+
+            return this;
+
+        }
+
+        public override RegisterBook hide()
         {
 
             return this;
