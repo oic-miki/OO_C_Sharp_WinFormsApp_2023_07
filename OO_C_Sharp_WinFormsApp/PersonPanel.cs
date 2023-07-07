@@ -680,9 +680,9 @@ namespace OO_C_Sharp_WinFormsApp
 
             this.place = place;
 
-            notify();
+            Debug.Assert(this.place != null);
 
-            Debug.Assert(place != null);
+            notify();
 
             return this;
 
