@@ -133,6 +133,7 @@ namespace OO_C_Sharp_WinFormsApp
 		    * ISBN
 		    */
 		    addInternationalStandardBookNumber("");
+
 		    /*
 		   * 貸し出しフラグ
 		   */
