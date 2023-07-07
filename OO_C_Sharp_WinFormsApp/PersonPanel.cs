@@ -30,7 +30,6 @@ namespace OO_C_Sharp_WinFormsApp
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
         private ContextMenuStrip context1= new ContextMenuStrip();
-        private ContextMenuStrip context2= new ContextMenuStrip();
 
         //保存ボタンを押した際に変更できるか判断するフラグ
         private bool changeFlg = true;
@@ -163,11 +162,11 @@ namespace OO_C_Sharp_WinFormsApp
         
          private void addLibraryContextMenu()
         {
-            context2.Items.Clear();
-            context2.Items.Add("ブック検索", null);
-            context2.Items.Add("検索クリア", null);
+            context1.Items.Clear();
+            context1.Items.Add("ブック検索", null);
+            context1.Items.Add("検索クリア", null);
 
-            ContextMenuStrip= context2;
+            ContextMenuStrip= context1;
         }
 
         private void addUserListContextMenu()
@@ -595,6 +594,7 @@ namespace OO_C_Sharp_WinFormsApp
 
                 default:
                     //TODO::コンテキストメニューが表示されないようにする処理
+                    ContextMenuStrip = null;
                     break;
             }
 
