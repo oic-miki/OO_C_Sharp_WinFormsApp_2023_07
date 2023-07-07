@@ -115,6 +115,8 @@ namespace OO_C_Sharp_WinFormsApp
                 addLibraryContextMenu();
             else if(place is RegisterUser)  //新規登録ウィンドウにあるPersonPanelであるばあい
                 addRegisterContextMenu();
+            else if(place is RegisteredUserList)
+                addUserListContextMenu();
         }
 
         private void initializeDragDrop()
@@ -174,6 +176,14 @@ namespace OO_C_Sharp_WinFormsApp
             context2.Items.Add("検索クリア", null);
 
             ContextMenuStrip= context2;
+        }
+
+        private void addUserListContextMenu()
+        {
+            context1.Items.Clear();
+            context1.Items.Add("example");
+
+            ContextMenuStrip = context1;
         }
 
         private void textBoxClear(object sender, EventArgs e)
@@ -575,6 +585,8 @@ namespace OO_C_Sharp_WinFormsApp
                 addLibraryContextMenu();
             else if (place is RegisterUser) //新規登録ウィンドウにあるPersonPanelであるばあい
                 addRegisterContextMenu();
+            else if (place is RegisteredUserList)
+                addUserListContextMenu();
 
 
             foreach (Control control in Controls)
