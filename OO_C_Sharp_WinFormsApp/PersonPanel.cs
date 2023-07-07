@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace OO_C_Sharp_WinFormsApp
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
         private ContextMenuStrip context1= new ContextMenuStrip();
+        private ContextMenuStrip context2= new ContextMenuStrip();
 
         //保存ボタンを押した際に変更できるか判断するフラグ
         private bool changeFlg = true;
@@ -108,11 +110,11 @@ namespace OO_C_Sharp_WinFormsApp
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
 
-            if (true)   //新規登録ウィンドウにあるPersonPanelであるばあい
+           
+            if (place is Library)   //ライブラリウィンドウにあるPersonPanelであるばあい
+                addLibraryContextMenu();
+            else  //新規登録ウィンドウにあるPersonPanelであるばあい
                 addRegisterContextMenu();
-            /*else if (false)   ライブラリウィンドウにあるPersonPanelであるばあい
-                addLibraryContextMenu();*/
-            
         }
 
         private void initializeDragDrop()
@@ -157,10 +159,21 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void addRegisterContextMenu()
         {
+            context1.Items.Clear();
             context1.Items.Add("入力クリア",null,textBoxClear);
             context1.Items.Add("保存", null, ContextSave);
 
+
             ContextMenuStrip = context1;
+        }
+        
+         private void addLibraryContextMenu()
+        {
+            context2.Items.Clear();
+            context2.Items.Add("ブック検索", null);
+            context2.Items.Add("検索クリア", null);
+
+            ContextMenuStrip= context2;
         }
 
         private void textBoxClear(object sender, EventArgs e)
@@ -556,6 +569,11 @@ namespace OO_C_Sharp_WinFormsApp
             bool isLibrary = place is Library;
             //if (place is Library)
             //{
+            if (place is Library)   //ライブラリウィンドウにあるPersonPanelであるばあい
+                addLibraryContextMenu();
+            else  //新規登録ウィンドウにあるPersonPanelであるばあい
+                addRegisterContextMenu();
+
 
             foreach (Control control in Controls)
             {
