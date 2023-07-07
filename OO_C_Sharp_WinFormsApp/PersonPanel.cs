@@ -23,7 +23,7 @@ namespace OO_C_Sharp_WinFormsApp
     {
 
         private int id;
-        private Place place;
+        private Place place = NullPlace.get();
         private List<Viewer> viewers = new List<Viewer>();
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
