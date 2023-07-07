@@ -109,14 +109,6 @@ namespace OO_C_Sharp_WinFormsApp
 
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
-
-           
-            if (place is Library)   //ライブラリウィンドウにあるPersonPanelであるばあい
-                addLibraryContextMenu();
-            else if(place is RegisterUser)  //新規登録ウィンドウにあるPersonPanelであるばあい
-                addRegisterContextMenu();
-            else if(place is RegisteredUserList)
-                addUserListContextMenu();
         }
 
         private void initializeDragDrop()
@@ -186,6 +178,7 @@ namespace OO_C_Sharp_WinFormsApp
             ContextMenuStrip = context1;
         }
 
+        #region RegisterContextMenu
         private void textBoxClear(object sender, EventArgs e)
         {
             var c = Controls.OfType<TextBox>();
@@ -206,6 +199,12 @@ namespace OO_C_Sharp_WinFormsApp
         private void ContextSave(object sender, EventArgs e)
         {
             saveButton_Click(sender, e);
+        }
+        #endregion
+
+        private void ReDate()
+        {
+
         }
         /// <summary>
         /// Initializes a new instance of the <see cref='System.Drawing.Point'/> class with the specified coordinates.
@@ -580,13 +579,24 @@ namespace OO_C_Sharp_WinFormsApp
         private void notify()
         {
             bool isLibrary = place is Library;
+            switch(place)
+            {
+                case Library:
+                    addLibraryContextMenu();
+                    break;
 
-            if (place is Library)   //ライブラリウィンドウにあるPersonPanelであるばあい
-                addLibraryContextMenu();
-            else if (place is RegisterUser) //新規登録ウィンドウにあるPersonPanelであるばあい
-                addRegisterContextMenu();
-            else if (place is RegisteredUserList)
-                addUserListContextMenu();
+                case RegisterUser:
+                    addRegisterContextMenu();
+                    break;
+
+                case RegisteredUserList:
+                    addUserListContextMenu();
+                    break;
+
+                default:
+                    //TODO::コンテキストメニューが表示されないようにする処理
+                    break;
+            }
 
 
             foreach (Control control in Controls)
