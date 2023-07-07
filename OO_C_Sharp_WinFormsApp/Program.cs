@@ -19,6 +19,7 @@ namespace OO_C_Sharp_WinFormsApp
              * システム起動時のフォーム
              */
             System.Windows.Forms.Application.Run(new LibraryApplication());
+            //System.Windows.Forms.Application.Run(new BookDBTest());
 
         }
 
