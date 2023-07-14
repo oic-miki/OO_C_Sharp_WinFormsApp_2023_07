@@ -22,7 +22,6 @@ namespace OO_C_Sharp_WinFormsApp
 
     public class PersonPanel : Panel, ISerializable
     {
-
         private int id;
         private Place place = NullPlace.get();
         private List<Viewer> viewers = new List<Viewer>();
@@ -171,8 +170,8 @@ namespace OO_C_Sharp_WinFormsApp
         private void addUserListContextMenu()
         {
             context.Items.Clear();
-            context.Items.Add("example");
             context.Items.Add("変更前に戻す", null, ResetData);
+            context.Items.Add("変更の保存", null, ContextSave);
 
             ContextMenuStrip = context;
         }
@@ -199,22 +198,21 @@ namespace OO_C_Sharp_WinFormsApp
         {
             saveButton_Click(sender, e);
         }
-        #endregion
 
         private void ResetData(object sender, EventArgs e)
         {
             var userDB = UserDataBase.get();
-            foreach(User user in userDB.list())
+            foreach (User user in userDB.list())
             {
-                if(user.getId() == id)
+                if (user.getId() == id)
                 {
                     Controls.OfType<FamilyNameTextBox>().FirstOrDefault().Text = user.getFamilyName();
                     Controls.OfType<PersonNameTextBox>().FirstOrDefault().Text = user.getName();
                     Controls.OfType<PersonBirthdayDateTimePicker>().FirstOrDefault().Value = user.getBirthday();
                     Controls.OfType<PersonImagePictureBox>().FirstOrDefault().Image = user.getImage();
-                    
+
                     var comboBox = Controls.OfType<UserRoleComboBox>().FirstOrDefault();
-                    if(user.isAdministrator())
+                    if (user.isAdministrator())
                     {
                         comboBox.SelectedItem = RoleMap.get().acquireAlias(Role.Administrator);
                     }
@@ -222,11 +220,12 @@ namespace OO_C_Sharp_WinFormsApp
                     {
                         comboBox.SelectedItem = RoleMap.get().acquireAlias(Role.None);
                     }
-                    
+
                     break;
                 }
             }
         }
+        #endregion
         /// <summary>
         /// Initializes a new instance of the <see cref='System.Drawing.Point'/> class with the specified coordinates.
         /// </summary>
