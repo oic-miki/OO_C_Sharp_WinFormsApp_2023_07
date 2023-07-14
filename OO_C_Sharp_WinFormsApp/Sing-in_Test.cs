@@ -12,14 +12,30 @@ namespace OO_C_Sharp_WinFormsApp
 {
     public partial class Sing_in_Test : Form
     {
-        public Sing_in_Test()
+        //private Class1 class1 = new Class1();
+        private PersonPanel personPanel;
+
+        public Sing_in_Test(PersonPanel personPanel)
         {
             InitializeComponent();
+
+            this.personPanel = personPanel;
+        }
+
+        public void addPersonPanel(PersonPanel personPanel)
+        {
+            this.personPanel = personPanel;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Class1().SinginTest();
+            if (personPanel == null) return;
+
+            //if(class1.SinginTest())
+            if (personPanel.IsSignin())
+            {
+                Hide();
+            }
         }
     }
 }
