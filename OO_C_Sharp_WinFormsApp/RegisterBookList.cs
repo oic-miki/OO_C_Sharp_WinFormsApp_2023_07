@@ -126,7 +126,7 @@ namespace OO_C_Sharp_WinFormsApp
                 {
 
                     // 利用者情報のパネルを生成する
-                    BookPanel personPanel = new BookPanel(book);
+                    BookPanel bookPanel = new BookPanel(book);
 
                     /*
                      * 最初に、ビューワー用の利用者情報のパネルを生成し、ビューワーへ追加する。
