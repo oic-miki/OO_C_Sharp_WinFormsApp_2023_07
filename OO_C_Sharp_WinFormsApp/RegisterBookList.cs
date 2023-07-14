@@ -126,7 +126,7 @@ namespace OO_C_Sharp_WinFormsApp
                 {
 
                     // 利用者情報のパネルを生成する
-                    BookPanel personPanel = new BookPanel(book);
+                    BookPanel bookPanel = new BookPanel(book);
 
                     /*
                      * 最初に、ビューワー用の利用者情報のパネルを生成し、ビューワーへ追加する。
@@ -134,7 +134,7 @@ namespace OO_C_Sharp_WinFormsApp
                      * その次に、活性化のハンドラーとして登録する。
                      * 最後に、利用者情報のパネルを追加する。
                      */
-                    add(personPanel.addViewer(bookPanelViewer.add(new BookPanel(book))).addActivationHandler(bookPanelViewer).setLocation(x, y));
+                    add(bookPanel.addViewer(bookPanelViewer.add(new BookPanel(book))).addActivationHandler(bookPanelViewer).setLocation(x, y));
 
                     x += incrementalValueOfX;
                     y += incrementalValueOfY;
@@ -142,7 +142,7 @@ namespace OO_C_Sharp_WinFormsApp
                     if (application is Observer)
                     {
 
-                        personPanel.addObserver(application as Observer);
+                        bookPanel.addObserver(application as Observer);
 
                     }
 
