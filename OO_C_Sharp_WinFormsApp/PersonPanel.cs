@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,13 +30,15 @@ namespace OO_C_Sharp_WinFormsApp
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
         private ContextMenuStrip context1= new ContextMenuStrip();
+        private ContextMenuStrip context2= new ContextMenuStrip();
+        private Sing_in_Test sing_in;
+        private ContextMenuStrip context= new ContextMenuStrip();
 
         //保存ボタンを押した際に変更できるか判断するフラグ
         private bool changeFlg = true;
 
         public PersonPanel(Person person)
         {
-
             Debug.Assert(person != null);
 
             id = person.getId();
@@ -93,8 +96,11 @@ namespace OO_C_Sharp_WinFormsApp
             /*
              * コンテキストメニュー
              */
+            
             ContextMenuStrip = new SampleContextMenuStrip();
 
+            sing_in = new Sing_in_Test(this);
+            sing_in.Hide();
             /*
              * パネル
              */
@@ -106,12 +112,6 @@ namespace OO_C_Sharp_WinFormsApp
 
             // ドラッグ＆ドロップを実行可能にする
             initializeDragDrop();
-
-            if (true)   //新規登録ウィンドウにあるPersonPanelであるばあい
-                addRegisterContextMenu();
-            /*else if (false)   ライブラリウィンドウにあるPersonPanelであるばあい
-                addLibraryContextMenu();*/
-            
         }
 
         private void initializeDragDrop()
@@ -124,13 +124,8 @@ namespace OO_C_Sharp_WinFormsApp
         private void event_MouseDown(object sender, MouseEventArgs e)
         {
 
-            if (DoDragDrop(this, DragDropEffects.Move) == DragDropEffects.Move)
-            {
-
-                setLocation(e.X, e.Y);
-
-            }
-            else if (e.Button == MouseButtons.Right)
+           
+            if (e.Button == MouseButtons.Right)
             {
 
                 if (ContextMenuStrip != null)
@@ -142,7 +137,12 @@ namespace OO_C_Sharp_WinFormsApp
                 }
 
             }
+            else if (DoDragDrop(this, DragDropEffects.Move) == DragDropEffects.Move)
+            {
 
+                setLocation(e.X, e.Y);
+
+            }
             foreach (ActivationHandler activationHandler in activationHandlers)
             {
 
@@ -156,16 +156,40 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void addRegisterContextMenu()
         {
-            context1.Items.Add("入力クリア",null,textBoxClear);
-            context1.Items.Add("保存", null, ContextSave);
+            context.Items.Clear();
+            context.Items.Add("入力クリア",null,textBoxClear);
+            context.Items.Add("保存", null, ContextSave);
 
-            ContextMenuStrip = context1;
+
+            ContextMenuStrip = context;
+        }
+        
+         private void addLibraryContextMenu()
+        {
+            context.Items.Clear();
+            context.Items.Add("ブック検索", null);
+            context.Items.Add("検索クリア", null);
+
+            ContextMenuStrip= context;
         }
 
+        private void addUserListContextMenu()
+        {
+            context.Items.Clear();
+            context.Items.Add("example");
+            context.Items.Add("変更前に戻す", null, ResetData);
+
+            ContextMenuStrip = context;
+        }
+
+        #region RegisterContextMenu
         private void textBoxClear(object sender, EventArgs e)
         {
             var c = Controls.OfType<TextBox>();
             foreach(TextBox t in c) { t.Text = ""; }
+
+            var label =Controls.OfType<UserRoleLabel>();
+            foreach(UserRoleLabel t in label) { t.Text = "利用者"; }
 
             var comboBoxes = Controls.OfType<ComboBox>();
             foreach(ComboBox combo in comboBoxes) { combo.SelectedIndex = 0; }
@@ -179,6 +203,34 @@ namespace OO_C_Sharp_WinFormsApp
         private void ContextSave(object sender, EventArgs e)
         {
             saveButton_Click(sender, e);
+        }
+        #endregion
+
+        private void ResetData(object sender, EventArgs e)
+        {
+            var userDB = UserDataBase.get();
+            foreach(User user in userDB.list())
+            {
+                if(user.getId() == id)
+                {
+                    Controls.OfType<FamilyNameTextBox>().FirstOrDefault().Text = user.getFamilyName();
+                    Controls.OfType<PersonNameTextBox>().FirstOrDefault().Text = user.getName();
+                    Controls.OfType<PersonBirthdayDateTimePicker>().FirstOrDefault().Value = user.getBirthday();
+                    Controls.OfType<PersonImagePictureBox>().FirstOrDefault().Image = user.getImage();
+                    
+                    var comboBox = Controls.OfType<UserRoleComboBox>().FirstOrDefault();
+                    if(user.isAdministrator())
+                    {
+                        comboBox.SelectedItem = RoleMap.get().acquireAlias(Role.Administrator);
+                    }
+                    else
+                    {
+                        comboBox.SelectedItem = RoleMap.get().acquireAlias(Role.None);
+                    }
+                    
+                    break;
+                }
+            }
         }
         /// <summary>
         /// Initializes a new instance of the <see cref='System.Drawing.Point'/> class with the specified coordinates.
@@ -553,8 +605,26 @@ namespace OO_C_Sharp_WinFormsApp
         private void notify()
         {
             bool isLibrary = place is Library;
-            //if (place is Library)
-            //{
+            switch(place)
+            {
+                case Library:
+                    addLibraryContextMenu();
+                    break;
+
+                case RegisterUser:
+                    addRegisterContextMenu();
+                    break;
+
+                case RegisteredUserList:
+                    addUserListContextMenu();
+                    break;
+
+                default:
+                    //TODO::コンテキストメニューが表示されないようにする処理
+                    ContextMenuStrip = null;
+                    break;
+            }
+
 
             foreach (Control control in Controls)
             {
@@ -584,7 +654,11 @@ namespace OO_C_Sharp_WinFormsApp
 
                 }
             }
-            //}
+
+            if (isLibrary)
+            {
+                sing_in.Show();
+            }
 
             // オブザーバーに更新を促す
             foreach (Observer observer in observers)

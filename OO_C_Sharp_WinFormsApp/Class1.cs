@@ -9,9 +9,11 @@ namespace OO_C_Sharp_WinFormsApp
 {
     internal class Class1
     {
-        public void SinginTest()
+        public bool SinginTest()
         {
-            Debug.Assert(new PersonPanel(NullUser.get()).IsSignin() == true);
+            bool singIn = new PersonPanel(NullUser.get()).IsSignin();
+            Debug.Assert(singIn == true);
+            return singIn;
         }
     }
 }

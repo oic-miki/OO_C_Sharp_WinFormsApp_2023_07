@@ -61,6 +61,9 @@ namespace OO_C_Sharp_WinFormsApp
 
         Person addImage(Image image);
 
+        bool hasBook();
+
+        List<Book> getBookList();
     }
 
     /// <summary>
@@ -73,6 +76,8 @@ namespace OO_C_Sharp_WinFormsApp
         /// ID
         /// </summary>
         private int id;
+
+       
 
         /// <summary>
         /// 姓
@@ -124,7 +129,6 @@ namespace OO_C_Sharp_WinFormsApp
              * イメージ
              */
             addImage(Properties.Resources.noImage_60x80);
-
         }
 
         /// <summary>
@@ -166,8 +170,13 @@ namespace OO_C_Sharp_WinFormsApp
             addImage(image);
 
         }
+        public bool hasBook()
+        {
+	        return true;
+        }
 
-        public int getId()
+
+		public int getId()
         {
 
             return id;
@@ -292,6 +301,10 @@ namespace OO_C_Sharp_WinFormsApp
 
         }
 
+        public List<Book> getBookList()
+        {
+	        return new List<Book>();
+        }
     }
 
     public class NullPerson : PersonModel, NullObject

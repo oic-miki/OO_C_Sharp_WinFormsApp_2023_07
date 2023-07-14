@@ -196,10 +196,10 @@ namespace OO_C_Sharp_WinFormsApp {
 				BookPanel bookPanel = control as BookPanel;
 
 				Controls.Add(bookPanel.addViewer(this));
-				BookPanelMap.Add(bookPanel.getId(), bookPanel);
+				BookPanelMap.Add(bookPanel.getBook().getId(), bookPanel);
 
 				Debug.Assert(Controls.Contains(bookPanel));
-				Debug.Assert(BookPanelMap.ContainsKey(bookPanel.getId()));
+				Debug.Assert(BookPanelMap.ContainsKey(bookPanel.getBook().getId()));
 				Debug.Assert(BookPanelMap.ContainsValue(bookPanel));
 
 			}

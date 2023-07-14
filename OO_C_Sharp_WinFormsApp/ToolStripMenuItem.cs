@@ -12,12 +12,13 @@ namespace OO_C_Sharp_WinFormsApp
 
         public SampleToolStripMenuItem()
         {
-
+            
             Name = "SampleToolStripMenuItem";
             Text = "サンプルメニュー";
 
         }
 
     }
+   
 
 }
