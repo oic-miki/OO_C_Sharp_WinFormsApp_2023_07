@@ -33,6 +33,8 @@ namespace OO_C_Sharp_WinFormsApp
         private Sing_in_Test sing_in;
         private ContextMenuStrip context= new ContextMenuStrip();
 
+        private UserDataBase userDB = UserDataBase.get();
+
         //保存ボタンを押した際に変更できるか判断するフラグ
         private bool changeFlg = true;
 
@@ -730,9 +732,17 @@ namespace OO_C_Sharp_WinFormsApp
                 }
             }
 
-            if (isLibrary)
+
+            User user = userDB.findById(id);
+            if(user != null)
             {
-                sing_in.Show();
+                if (isLibrary && user.isAdministrator())
+                {
+                    //if(!IsSignin())   IsSignin()の実装後にコメント消す
+                    {
+                        sing_in.Show();
+                    }
+                }
             }
 
             // オブザーバーに更新を促す

@@ -85,7 +85,7 @@ namespace OO_C_Sharp_WinFormsApp {
 			/*
 			 * 貸出フラグ
 			 */
-			Controls.Add(createBookLendLabel(book));
+			//Controls.Add(createBookLendLabel(book));
 			/*
 			 * パネル
 			 */
@@ -460,6 +460,9 @@ namespace OO_C_Sharp_WinFormsApp {
 		private void returnButton_Click(object? sender, EventArgs e)
 		{
 			book.returnBook();
+			addPerson(person);
+			person.removeBook(book);
+			notify();
 		}
 
 		private void notify()
@@ -470,7 +473,7 @@ namespace OO_C_Sharp_WinFormsApp {
 			{
 
 				observer.update();
-			
+
 
 			}
 			if (person.hasBook())
@@ -478,19 +481,25 @@ namespace OO_C_Sharp_WinFormsApp {
 
 				foreach (var books in person.getBookList())
 				{
-
+					returnButton.Enabled = true;
+					lendButton.Enabled = false;
 					if (book.Equals_Book(books))
 					{
-						returnButton.Enabled = true;
-						lendButton.Enabled = false;
+						
 					}
 					else
 					{
-						lendButton.Enabled = true;
-						returnButton.Enabled = false;
+						
 					}
 				}
 			}
+			else
+			{
+				returnButton.Enabled = false;
+				lendButton.Enabled = true;
+			}
+			
+			
 		}
 		public BookPanel addPlace(Place place)
 		{
@@ -610,6 +619,6 @@ namespace OO_C_Sharp_WinFormsApp {
 			this.person = person;
 			return this;
 		}
-	}	
+	}
 
 }
