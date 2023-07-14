@@ -187,6 +187,19 @@ namespace OO_C_Sharp_WinFormsApp
 
                 e.Effect = DragDropEffects.Move;
 
+
+                //サインイン確認
+                if(personPanel.IsSignin())
+                {
+                    //サインイン状態
+                    personPanel.BackColor = Color.Yellow;
+                }
+                else
+                {
+                    //サインアウト状態
+                    personPanel.BackColor = Color.White;
+                }
+                personPanel.CreateSigninPanel();
             }
 
         }

@@ -616,6 +616,30 @@ namespace OO_C_Sharp_WinFormsApp
         }
 
         /// <summary>
+        /// 姓
+        /// </summary>
+        /// <returns></returns>
+        private Title createSigninPanel()
+        {
+            string signin = "";
+            if (IsSignin())
+                signin = "ログイン中";
+            else
+                signin = "ログアウトしています";
+            Title title = new Title("サインイン状態：" + signin);
+
+            title.setLocation(150, 10).Size = new Size(38, 15);
+
+            return title;
+
+        }
+
+        public void CreateSigninPanel()
+        {
+            Controls.Add(createSigninPanel());
+        }
+
+        /// <summary>
         /// saveButton
         /// </summary>
         /// <param name="tabIndex"></param>
