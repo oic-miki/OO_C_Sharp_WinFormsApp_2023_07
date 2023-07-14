@@ -28,6 +28,9 @@ namespace OO_C_Sharp_WinFormsApp
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
+        private ContextMenuStrip context1= new ContextMenuStrip();
+        private ContextMenuStrip context2= new ContextMenuStrip();
+        private Sing_in_Test sing_in;
         private ContextMenuStrip context= new ContextMenuStrip();
 
         //保存ボタンを押した際に変更できるか判断するフラグ
@@ -95,6 +98,8 @@ namespace OO_C_Sharp_WinFormsApp
             
             ContextMenuStrip = new SampleContextMenuStrip();
 
+            sing_in = new Sing_in_Test(this);
+            sing_in.Hide();
             /*
              * パネル
              */
@@ -648,7 +653,11 @@ namespace OO_C_Sharp_WinFormsApp
 
                 }
             }
-            //}
+
+            if (isLibrary)
+            {
+                sing_in.Show();
+            }
 
             // オブザーバーに更新を促す
             foreach (Observer observer in observers)
