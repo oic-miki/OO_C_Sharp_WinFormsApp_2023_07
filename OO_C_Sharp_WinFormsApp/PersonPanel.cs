@@ -29,14 +29,13 @@ namespace OO_C_Sharp_WinFormsApp
         private List<Observer> observers = new List<Observer>();
         private List<ActionListener> actionListeners = new List<ActionListener>();
         private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
-        private ContextMenuStrip context1= new ContextMenuStrip();
+        private ContextMenuStrip context= new ContextMenuStrip();
 
         //保存ボタンを押した際に変更できるか判断するフラグ
         private bool changeFlg = true;
 
         public PersonPanel(Person person)
         {
-
             Debug.Assert(person != null);
 
             id = person.getId();
@@ -152,29 +151,30 @@ namespace OO_C_Sharp_WinFormsApp
 
         private void addRegisterContextMenu()
         {
-            context1.Items.Clear();
-            context1.Items.Add("入力クリア",null,textBoxClear);
-            context1.Items.Add("保存", null, ContextSave);
+            context.Items.Clear();
+            context.Items.Add("入力クリア",null,textBoxClear);
+            context.Items.Add("保存", null, ContextSave);
 
 
-            ContextMenuStrip = context1;
+            ContextMenuStrip = context;
         }
         
          private void addLibraryContextMenu()
         {
-            context1.Items.Clear();
-            context1.Items.Add("ブック検索", null);
-            context1.Items.Add("検索クリア", null);
+            context.Items.Clear();
+            context.Items.Add("ブック検索", null);
+            context.Items.Add("検索クリア", null);
 
-            ContextMenuStrip= context1;
+            ContextMenuStrip= context;
         }
 
         private void addUserListContextMenu()
         {
-            context1.Items.Clear();
-            context1.Items.Add("example");
+            context.Items.Clear();
+            context.Items.Add("example");
+            context.Items.Add("変更前に戻す", null, ResetData);
 
-            ContextMenuStrip = context1;
+            ContextMenuStrip = context;
         }
 
         #region RegisterContextMenu
@@ -201,9 +201,31 @@ namespace OO_C_Sharp_WinFormsApp
         }
         #endregion
 
-        private void ReDate()
+        private void ResetData(object sender, EventArgs e)
         {
-
+            var userDB = UserDataBase.get();
+            foreach(User user in userDB.list())
+            {
+                if(user.getId() == id)
+                {
+                    Controls.OfType<FamilyNameTextBox>().FirstOrDefault().Text = user.getFamilyName();
+                    Controls.OfType<PersonNameTextBox>().FirstOrDefault().Text = user.getName();
+                    Controls.OfType<PersonBirthdayDateTimePicker>().FirstOrDefault().Value = user.getBirthday();
+                    Controls.OfType<PersonImagePictureBox>().FirstOrDefault().Image = user.getImage();
+                    
+                    var comboBox = Controls.OfType<UserRoleComboBox>().FirstOrDefault();
+                    if(user.isAdministrator())
+                    {
+                        comboBox.SelectedItem = RoleMap.get().acquireAlias(Role.Administrator);
+                    }
+                    else
+                    {
+                        comboBox.SelectedItem = RoleMap.get().acquireAlias(Role.None);
+                    }
+                    
+                    break;
+                }
+            }
         }
         /// <summary>
         /// Initializes a new instance of the <see cref='System.Drawing.Point'/> class with the specified coordinates.
