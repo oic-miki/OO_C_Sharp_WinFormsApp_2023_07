@@ -33,6 +33,10 @@ namespace OO_C_Sharp_WinFormsApp
 		BookModel.LendState getLendState();
 		Book lendBook();
 
+		Book returnBook();
+		bool Equals_Book(Book? book);
+
+
     }
 
     public class NullBook : BookModel, NullObject
@@ -65,6 +69,8 @@ namespace OO_C_Sharp_WinFormsApp
           * 貸し出しフラグ
           */
 			base.setLendState(LendState.None);
+
+			
         }
 
         public static Book get()
@@ -139,6 +145,7 @@ namespace OO_C_Sharp_WinFormsApp
 		   */
 		    setLendState(LendState.None);
 
+
 	    }
 
 
@@ -173,6 +180,13 @@ namespace OO_C_Sharp_WinFormsApp
            * 貸し出しフラグ
            */
 		    setLendState(lendState);
+
+		    lendBook();
+
+		    returnBook();
+
+
+
 	    }
 
 
@@ -283,5 +297,16 @@ namespace OO_C_Sharp_WinFormsApp
 		    this.lendState = LendState.Loaned;
 		    return this;
 	    }
-    }
+
+	    public Book returnBook()
+	    {
+		  
+		    this.lendState = LendState.Lendable;
+		    return this;
+	    }
+	    public bool Equals_Book(Book? book)
+	    {
+		    return this.getId == book.getId;
+	    }
+	}
 }

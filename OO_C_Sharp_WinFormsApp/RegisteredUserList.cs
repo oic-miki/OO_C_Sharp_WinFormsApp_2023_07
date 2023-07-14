@@ -8,7 +8,7 @@ namespace OO_C_Sharp_WinFormsApp
     /// <summary>
     /// 登録済み利用者
     /// </summary>
-    public abstract partial class RegisteredUserList : Form, Viewer, Observer
+    public abstract partial class RegisteredUserList : Form, Viewer, Observer, Place
     {
 
         private UserDataBase userDB = UserDataBase.get();
@@ -65,7 +65,7 @@ namespace OO_C_Sharp_WinFormsApp
                 if (!Controls.Contains(personPanel))
                 {
 
-                    Controls.Add(personPanel);
+                    Controls.Add(personPanel.addPlace(this));
 
                 }
 
@@ -124,7 +124,7 @@ namespace OO_C_Sharp_WinFormsApp
                 {
 
                     // 利用者情報のパネルを生成する
-                    PersonPanel personPanel = new PersonPanel(user);
+                    PersonPanel personPanel = new PersonPanel(user).addPlace(this);
 
                     /*
                      * 最初に、ビューワー用の利用者情報のパネルを生成し、ビューワーへ追加する。
@@ -307,6 +307,26 @@ namespace OO_C_Sharp_WinFormsApp
 
             }
 
+        }
+
+        public int getId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string getName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Place addName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Place add(PlaceRegister placeRegister)
+        {
+            throw new NotImplementedException();
         }
 
     }

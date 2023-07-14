@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using Button = System.Windows.Forms.Button;
 using ComboBox = System.Windows.Forms.ComboBox;
 using Label = System.Windows.Forms.Label;
@@ -22,18 +23,20 @@ namespace OO_C_Sharp_WinFormsApp {
 
 	public class BookPanel : Panel, ISerializable {
 
-		private int id;
+		private Book book;
+		private Place place = NullPlace.get();
 		private List<Viewer> viewers = new List<Viewer>();
 		private List<Observer> observers = new List<Observer>();
 		private List<ActionListener> actionListeners = new List<ActionListener>();
 		private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
-
+		private Button lendButton;
+		private Button returnButton;
 		public BookPanel(Book book)
 		{
 
 			Debug.Assert(book != null);
 
-			id = book.getId();
+			this.book = book;
 
 			int tabIndex = 0;
 
@@ -69,7 +72,12 @@ namespace OO_C_Sharp_WinFormsApp {
 			Controls.Add(createBookFormatTitle());
 			Controls.Add(createBookFormatLabel(book));
 			Controls.Add(createBookFormatTextBox(book, tabIndex++));
+
+
 			Controls.Add(createSaveButton(tabIndex++));
+
+			Controls.Add(createLendButton(tabIndex++));
+			Controls.Add(createReturnButton(tabIndex++));
 
 			/*
 			 * 貸出フラグ
@@ -86,6 +94,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			// ドラッグ＆ドロップを実行可能にする
 			initializeDragDrop();
+
 
 		}
 
@@ -121,7 +130,7 @@ namespace OO_C_Sharp_WinFormsApp {
 			foreach (ActivationHandler activationHandler in activationHandlers)
 			{
 
-				activationHandler.activate(getId());
+				activationHandler.activate(getBook().getId());
 
 			}
 
@@ -386,6 +395,41 @@ namespace OO_C_Sharp_WinFormsApp {
 
 		}
 
+		private Button createLendButton(int tabIndex)
+		{
+
+			lendButton = new Button();
+
+			lendButton.Location = new Point(200, 200);
+			lendButton.Name = "saveButton";
+			lendButton.Size = new Size(50, 23);
+			lendButton.TabIndex = tabIndex;
+			lendButton.Text = "借りる";
+			lendButton.UseVisualStyleBackColor = true;
+			lendButton.Click += saveButton_Click;
+
+			return lendButton;
+
+		}
+
+		private Button createReturnButton(int tabIndex)
+		{
+
+			returnButton = new Button();
+
+			returnButton.Location = new Point(100, 200);
+			returnButton.Name = "ReturnButton";
+			returnButton.Size = new Size(70, 23);
+			returnButton.TabIndex = tabIndex;
+			returnButton.Text = "返却する";
+			returnButton.UseVisualStyleBackColor = true;
+			returnButton.Click += saveButton_Click;
+
+			return returnButton;
+
+		}
+
+
 		private void saveButton_Click(object? sender, EventArgs e)
 		{
 
@@ -414,7 +458,20 @@ namespace OO_C_Sharp_WinFormsApp {
 			}
 
 		}
+		public BookPanel addPlace(Place place)
+		{
 
+			Debug.Assert(place != null);
+
+			this.place = place;
+
+			Debug.Assert(this.place != null);
+
+			notify();
+
+			return this;
+
+		}
 		public BookPanel addViewer(Viewer viewer)
 		{
 
@@ -492,10 +549,10 @@ namespace OO_C_Sharp_WinFormsApp {
 
 		}
 
-		public int getId()
+		public Book getBook()
 		{
 
-			return id;
+			return book;
 
 		}
 
@@ -513,7 +570,28 @@ namespace OO_C_Sharp_WinFormsApp {
 			ClientSize = new Size(weight, height);
 			return this;
 		}
+		public BookPanel addPerson(Person person)
+		{
+			if (person.hasBook())
+			{
 
-	}
+				foreach (var books in person.getBookList())
+				{
+					
+					if (book.Equals_Book(books))
+					{
+						returnButton.Enabled = true;
+						lendButton.Enabled = false;
+					}
+					else
+					{
+						lendButton.Enabled = true;
+						returnButton.Enabled = false;
+					}
+				}
+			}
+			return this;
+		}
+	}	
 
 }
