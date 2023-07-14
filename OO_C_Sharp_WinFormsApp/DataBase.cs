@@ -506,11 +506,11 @@ namespace OO_C_Sharp_WinFormsApp
 
         private Dictionary<int, Book> dataBase = new Dictionary<int, Book>()
         {
-           /* 
+           /*
            {1, new BookModel(1, "となりのトトロ", 1000, "A5", "123-4567", LendState.None)},
            {2, new BookModel(2,     "猫の気持ち", 2500, "A3", "123-4568", LendState.Loaned)},
            {3, new BookModel(3, "シーサーペント",   10, "b5", "133-4444", LendState.Lendable)},
-           */ 
+           */
         };
         private List<Book> books = new List<Book>();
 

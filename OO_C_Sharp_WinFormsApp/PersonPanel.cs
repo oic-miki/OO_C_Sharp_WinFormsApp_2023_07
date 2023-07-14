@@ -33,8 +33,12 @@ namespace OO_C_Sharp_WinFormsApp
         private Sing_in_Test sing_in;
         private ContextMenuStrip context= new ContextMenuStrip();
 
+        private UserDataBase userDB = UserDataBase.get();
+
         //保存ボタンを押した際に変更できるか判断するフラグ
         private bool changeFlg = true;
+
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
         public PersonPanel(Person person)
         {
@@ -43,6 +47,10 @@ namespace OO_C_Sharp_WinFormsApp
             id = person.getId();
 
             int tabIndex = 0;
+
+            timer.Interval = 1000;
+            timer.Enabled = true;
+            timer.Tick += new EventHandler(CheckRegisteredUserListContext);
 
             /*
              * ID
@@ -228,6 +236,52 @@ namespace OO_C_Sharp_WinFormsApp
 
                     break;
                 }
+            }
+        }
+
+        private void CheckRegisteredUserListContext(object sender, EventArgs e)
+        {
+            if (!(place is RegisteredUserList))
+                return;
+
+            var userDB = UserDataBase.get();
+            bool checkFlg = false;
+            foreach(User user in userDB.list())
+            {
+                if(user.getId() == id)
+                {
+                    if (Controls.OfType<FamilyNameTextBox>().FirstOrDefault().Text != user.getFamilyName())
+                        checkFlg = true;
+
+                    if (Controls.OfType<PersonNameTextBox>().FirstOrDefault().Text != user.getName())
+                        checkFlg = true;
+
+                    if (Controls.OfType<PersonBirthdayDateTimePicker>().FirstOrDefault().Value != user.getBirthday())
+                        checkFlg = true;
+
+                    if (Controls.OfType<PersonImagePictureBox>().FirstOrDefault().Image != user.getImage())
+                        checkFlg = true;
+
+                    var comboBox = Controls.OfType<UserRoleComboBox>().FirstOrDefault();
+                    if (user.isAdministrator())
+                    {
+                        if (comboBox.SelectedItem != RoleMap.get().acquireAlias(Role.Administrator))
+                            checkFlg = true;
+                    }
+                    else
+                    {
+                        if (comboBox.SelectedItem != RoleMap.get().acquireAlias(Role.None))
+                            checkFlg = true;
+                    }
+                }
+            }
+
+            //if(context.Items.Contains(ToolStripMenuItem.))
+            //context.Items[0].Enabled = checkFlg;
+
+            for(int i = 0;i<context.Items.Count;i++)
+            {
+                context.Items[i].Enabled = checkFlg;
             }
         }
         #endregion
@@ -654,9 +708,17 @@ namespace OO_C_Sharp_WinFormsApp
                 }
             }
 
-            if (isLibrary)
+
+            User user = userDB.findById(id);
+            if(user != null)
             {
-                sing_in.Show();
+                if (isLibrary && user.isAdministrator())
+                {
+                    //if(!IsSignin())   IsSignin()の実装後にコメント消す
+                    {
+                        sing_in.Show();
+                    }
+                }
             }
 
             // オブザーバーに更新を促す
