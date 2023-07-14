@@ -31,8 +31,7 @@ namespace OO_C_Sharp_WinFormsApp
         {
             if (personPanel == null) return;
 
-            //if(class1.SinginTest())
-            if (personPanel.IsSignin())
+            //if (パスワードとIDが一致してれば、非表示)   
             {
                 Hide();
             }

@@ -84,7 +84,7 @@ namespace OO_C_Sharp_WinFormsApp {
 			/*
 			 * 貸出フラグ
 			 */
-			Controls.Add(createBookLendLabel(book));
+			//Controls.Add(createBookLendLabel(book));
 			/*
 >>>>>>> 83be79adc6f489966abfa8947b2c1a082a697c3c
 			 * パネル
