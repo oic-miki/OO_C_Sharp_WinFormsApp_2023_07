@@ -57,25 +57,6 @@ namespace OO_C_Sharp_WinFormsApp {
 			Controls.Add(createBookIsbnTextBox(book, tabIndex++));
 
 			/*
-			 * 価格
-			 */
-			Controls.Add(createBookPriceTitle());
-			Controls.Add(createBookPriceLabel(book));
-			Controls.Add(createBookPriceTextBox(book, tabIndex++));
-
-			/*
-			 * フォーマット
-			 */
-			Controls.Add(createBookFormatTitle());
-			Controls.Add(createBookFormatLabel(book));
-			Controls.Add(createBookFormatTextBox(book, tabIndex++));
-			Controls.Add(createSaveButton(tabIndex++));
-
-			/*
-			 * 貸出フラグ
-			 */
-			Controls.Add(createBookLendLabel(book));
-			/*
 			 * パネル
 			 */
 			setLocation(20, 20);
@@ -356,19 +337,6 @@ namespace OO_C_Sharp_WinFormsApp {
 			return bookFormatTextBox;
 
 		}
-		private BookLendLabel createBookLendLabel(Book book)
-		{
-
-			var bookLendLabel = new BookLendLabel(book);
-
-			bookLendLabel.setLocation(100, 200);
-			// オブザーバーとして登録する
-			addObserver(bookLendLabel);
-
-			return bookLendLabel;
-
-		}
-
 		private Button createSaveButton(int tabIndex)
 		{
 
