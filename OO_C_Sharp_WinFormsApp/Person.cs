@@ -63,7 +63,10 @@ namespace OO_C_Sharp_WinFormsApp
 
         Person addBook(Book book);
 
-        bool hasBook();
+        Person removeBook(Book book);
+
+
+		bool hasBook();
 
         List<Book> getBookList();
     }
@@ -101,7 +104,7 @@ namespace OO_C_Sharp_WinFormsApp
         /// </summary>
         private Image image;
 
-        List<Book> books = new List<Book>();
+        List<Book> books = new();
 		/// <summary>
 		/// デフォルトのコンストラクタです。
 		/// </summary>
@@ -314,7 +317,13 @@ namespace OO_C_Sharp_WinFormsApp
 	        books.Add(book);
             return this;
         }
-    }
+
+        public Person removeBook(Book book)
+        {
+	        books.Remove(book);
+	        return this;
+        }
+	}
 
     public class NullPerson : PersonModel, NullObject
     {
