@@ -23,7 +23,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 	public class BookPanel : Panel, ISerializable {
 
-		private Book book;
+		private Book book = NullBook.get();
 		private Place place = NullPlace.get();
 		private List<Viewer> viewers = new List<Viewer>();
 		private List<Observer> observers = new List<Observer>();
@@ -31,6 +31,8 @@ namespace OO_C_Sharp_WinFormsApp {
 		private List<ActivationHandler> activationHandlers = new List<ActivationHandler>();
 		private Button lendButton;
 		private Button returnButton;
+		private Person person = NullPerson.get();
+
 		public BookPanel(Book book)
 		{
 
@@ -73,6 +75,7 @@ namespace OO_C_Sharp_WinFormsApp {
 			Controls.Add(createBookFormatLabel(book));
 			Controls.Add(createBookFormatTextBox(book, tabIndex++));
 
+			Controls.Add(createBookLendLabel(book));
 
 			Controls.Add(createSaveButton(tabIndex++));
 
@@ -370,7 +373,7 @@ namespace OO_C_Sharp_WinFormsApp {
 
 			var bookLendLabel = new BookLendLabel(book);
 
-			bookLendLabel.setLocation(100, 200);
+			bookLendLabel.setLocation(100, 180);
 			// オブザーバーとして登録する
 			addObserver(bookLendLabel);
 
@@ -406,7 +409,7 @@ namespace OO_C_Sharp_WinFormsApp {
 			lendButton.TabIndex = tabIndex;
 			lendButton.Text = "借りる";
 			lendButton.UseVisualStyleBackColor = true;
-			lendButton.Click += saveButton_Click;
+			lendButton.Click += lendButton_Click;
 
 			return lendButton;
 
@@ -423,10 +426,9 @@ namespace OO_C_Sharp_WinFormsApp {
 			returnButton.TabIndex = tabIndex;
 			returnButton.Text = "返却する";
 			returnButton.UseVisualStyleBackColor = true;
-			returnButton.Click += saveButton_Click;
+			returnButton.Click += returnButton_Click;
 
 			return returnButton;
-
 		}
 
 
@@ -446,6 +448,20 @@ namespace OO_C_Sharp_WinFormsApp {
 
 		}
 
+		private void lendButton_Click(object? sender, EventArgs e)
+		{
+			book.lendBook();
+			addPerson(person);
+			person.addBook(book);
+
+			notify();
+		}
+
+		private void returnButton_Click(object? sender, EventArgs e)
+		{
+			book.returnBook();
+		}
+
 		private void notify()
 		{
 
@@ -454,9 +470,27 @@ namespace OO_C_Sharp_WinFormsApp {
 			{
 
 				observer.update();
+			
 
 			}
+			if (person.hasBook())
+			{
 
+				foreach (var books in person.getBookList())
+				{
+
+					if (book.Equals_Book(books))
+					{
+						returnButton.Enabled = true;
+						lendButton.Enabled = false;
+					}
+					else
+					{
+						lendButton.Enabled = true;
+						returnButton.Enabled = false;
+					}
+				}
+			}
 		}
 		public BookPanel addPlace(Place place)
 		{
@@ -570,26 +604,10 @@ namespace OO_C_Sharp_WinFormsApp {
 			ClientSize = new Size(weight, height);
 			return this;
 		}
+
 		public BookPanel addPerson(Person person)
 		{
-			if (person.hasBook())
-			{
-
-				foreach (var books in person.getBookList())
-				{
-					
-					if (book.Equals_Book(books))
-					{
-						returnButton.Enabled = true;
-						lendButton.Enabled = false;
-					}
-					else
-					{
-						lendButton.Enabled = true;
-						returnButton.Enabled = false;
-					}
-				}
-			}
+			this.person = person;
 			return this;
 		}
 	}	
