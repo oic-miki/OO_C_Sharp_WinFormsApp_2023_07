@@ -62,8 +62,6 @@ namespace OO_C_Sharp_WinFormsApp {
 			Controls.Add(createBookIsbnTextBox(book, tabIndex++));
 
 			/*
-<<<<<<< HEAD
-=======
 			 * 価格
 			 */
 			Controls.Add(createBookPriceTitle());
@@ -89,7 +87,6 @@ namespace OO_C_Sharp_WinFormsApp {
 			 */
 			Controls.Add(createBookLendLabel(book));
 			/*
->>>>>>> 83be79adc6f489966abfa8947b2c1a082a697c3c
 			 * パネル
 			 */
 			setLocation(20, 20);
