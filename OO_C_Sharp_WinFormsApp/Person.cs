@@ -61,6 +61,8 @@ namespace OO_C_Sharp_WinFormsApp
 
         Person addImage(Image image);
 
+        Person addBook(Book book);
+
         bool hasBook();
 
         List<Book> getBookList();
@@ -99,10 +101,11 @@ namespace OO_C_Sharp_WinFormsApp
         /// </summary>
         private Image image;
 
-        /// <summary>
-        /// デフォルトのコンストラクタです。
-        /// </summary>
-        public PersonModel()
+        List<Book> books = new List<Book>();
+		/// <summary>
+		/// デフォルトのコンストラクタです。
+		/// </summary>
+		public PersonModel()
         {
 
             /*
@@ -303,7 +306,13 @@ namespace OO_C_Sharp_WinFormsApp
 
         public List<Book> getBookList()
         {
-	        return new List<Book>();
+	        return books;
+        }
+
+        public Person addBook(Book book)
+        {
+	        books.Add(book);
+            return this;
         }
     }
 
